@@ -1,2 +1,12 @@
 # Shader_RDD
 Unity Reactive Diffusion Displacement Shader
+
+## Introduction
+
+A Unity image effect making displacement based on reactive diffusion algorithm. 
+
+More reactive diffusion stuff: <fillmember.github.io/rdtoy/>
+
+## Requirement
+
+Unity 5.4+
