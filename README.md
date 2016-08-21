@@ -1,4 +1,4 @@
-# Unity Reactive Diffusion Displacement Shader
+# Unity Reactive Diffusion Displacement Effect
 
 ## Introduction
 
