@@ -54,11 +54,10 @@
 			- v0;
 
 		float reaction = v0.r * v0.g * v0.g;
-		float du = 0.5 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
-		float dv = 1.0 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
+		float du = 1.0 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
+		float dv = 0.5 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
 
 		float2 dst = v0 + float2(du, dv) * 0.9;
-
 		dst.g += min(0.5,length(mv));
 
 		return float4( dst , mv.rg );
