@@ -24,10 +24,7 @@
 	float4 accumulatedMotionVector_TexelSize;
 
 	float texelSize;
-
-	float diffuseA;
-	float diffuseB;
-
+	
 	float feedRate;
 	float killRate;
 
@@ -57,8 +54,8 @@
 			- v0;
 
 		float reaction = v0.r * v0.g * v0.g;
-		float du = diffuseA * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
-		float dv = diffuseB * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
+		float du = 0.5 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
+		float dv = 1.0 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
 
 		float2 dst = v0 + float2(du, dv) * 0.9;
 
