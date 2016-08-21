@@ -8,36 +8,34 @@ namespace FillMember {
 
 		#region Public properties and methods
 
-		[Range(1,32)]
+		[SerializeField , Range(1,32)]
+		[Tooltip("simulation iterations per frame")]
 		public uint iterations = 2;
 
-		[Range(0,1f)]
-		public float diffuseA = 0.85f;
-		[Range(0,1f)]
-		public float diffuseB = 1.00f;
-
-
-		[Range(0,0.2f)]
+		[SerializeField , Range(0,0.2f)]
+		[Tooltip("Feed rate of reactive diffusion simulation")]
 		public float feedRate = 0.03500f;
-		[Range(0,0.2f)]
+
+		[SerializeField , Range(0,0.2f)]
+		[Tooltip("Kill rate of reactive diffusion simulation")]
 		public float killRate = 0.06400f;
 
-		[Range(0.0001f,0.005f)]
+		[SerializeField , Range(0.0001f,0.005f)]
+		[Tooltip("Simulation texel size. ")]
 		public float texelSize = 0.0015f;
 
-		[Range(0,1)]
+		[SerializeField , Range(0,1)]
+		[Tooltip("Displacement decay rate")]
 		public float decayRate = 0.98f;
 
-		public bool distortOnly = false;
+		[SerializeField]
+		public bool displacePositionOnly = false;
 
-		[Range(0,2)]
-		public int state = 0;
-
-		// public bool mosh = true;
-		// public bool distort = true;
 
 		#endregion
 
+		[SerializeField]
+		private int state = 0;
 
 		#region Private properties
 
@@ -63,6 +61,45 @@ namespace FillMember {
 
 
 		#region Monobehaviour functions
+
+		public void StopEffect(){
+
+			state = 0;
+
+		}
+
+		public void StartEffect(){
+
+			state = 1;
+
+		}
+
+		public void RDDebug() {
+
+			state = 3;
+
+		}
+
+		// Simulate: Reactive Diffusion Simulation
+		void Simulate() {
+
+			if (Time.frameCount != lastFrame) {
+
+				material.SetFloat ("killRate", killRate);
+				material.SetFloat ("feedRate", feedRate);
+				material.SetFloat ("texelSize", texelSize);
+
+				material.SetTexture ("rdTex", rdBuffer);
+
+				for (int i = 0; i < iterations; i++) {
+					Graphics.Blit ( rdBuffer , rdBuffer , material, 1 );
+				}
+
+				lastFrame = Time.frameCount;
+				
+			}
+
+		}
 
 		void OnEnable() {
 
@@ -99,76 +136,52 @@ namespace FillMember {
 			if (state == 0) {
 
 				// update buffers
-				ReleaseBuffer (rdBuffer);
-				rdBuffer = NewBuffer (source);
-				Graphics.Blit (source, rdBuffer);
-
 				ReleaseBuffer (workBuffer);
 				workBuffer = NewBuffer (source);
 				Graphics.Blit (source, workBuffer);
 
-				ReleaseBuffer( accumulated );
-				accumulated = NewBuffer( source );
-				Graphics.Blit (source, accumulated, material, 0);
+				// Material
+				material.SetTexture ("originalTex", workBuffer);
 
 				// Render : copy source to destination
 				Graphics.Blit (source, destination);
 
-				material.SetTexture ("originalTex", workBuffer);
 
 			} else if (state == 1) {
 
-				if (Time.frameCount != lastFrame) {
+				// update buffers
+				ReleaseBuffer (rdBuffer);
+				rdBuffer = NewBuffer (source);
+				Graphics.Blit (source, rdBuffer);
 
-					material.SetFloat ("killRate", killRate);
-					material.SetFloat ("feedRate", feedRate);
-					material.SetFloat ("diffuseA", diffuseA);
-					material.SetFloat ("diffuseB", diffuseB);
-					material.SetFloat ("texelSize", texelSize);
+				// accumulated
+				ReleaseBuffer( accumulated );
+				accumulated = NewBuffer( source );
+				Graphics.Blit (source, accumulated, material, 0);
 
-					material.SetTexture ("rdTex", rdBuffer);
+				state = 2;
 
-					for (int i = 0; i < iterations; i++) {
-						Graphics.Blit (rdBuffer, rdBuffer, material, 1);
-					}
+			} else if (state == 2) {
 
-					lastFrame = Time.frameCount;
+				Simulate();
 
-					// calculate accumulated
-					material.SetTexture ("accumulatedMotionVector", accumulated);
-					material.SetFloat ("decayRate", decayRate);
-					Graphics.Blit (source, accumulated, material, 2);
-					
-				}
+				// calculate accumulated
+				material.SetTexture ("accumulatedMotionVector", accumulated);
+				material.SetFloat ("decayRate", decayRate);
+				Graphics.Blit (source, accumulated, material, 2);
 
 				// write to destination
-				if ( distortOnly ) {
-					Graphics.Blit (source, workBuffer, material, 4);
-				} else {
+				if ( displacePositionOnly ) {
 					Graphics.Blit (source, workBuffer, material, 3);
+				} else {
+					Graphics.Blit (source, workBuffer, material, 4);
 				}
 
 				Graphics.Blit (workBuffer, destination);
 
-			} else if (state == 2) {
+			} else if (state == 3) {
 
-				if (Time.frameCount != lastFrame) {
-
-					material.SetFloat ("killRate", killRate);
-					material.SetFloat ("feedRate", feedRate);
-					material.SetFloat ("diffuseA", diffuseA);
-					material.SetFloat ("diffuseB", diffuseB);
-					material.SetFloat ("texelSize", texelSize);
-
-					material.SetTexture ("rdTex", rdBuffer);
-
-					for (int i = 0; i < iterations; i++) {
-						Graphics.Blit (rdBuffer, rdBuffer, material, 1);
-					}
-
-					lastFrame = Time.frameCount;
-
-				}
+				Simulate();
 
 				Graphics.Blit (rdBuffer, destination);
 

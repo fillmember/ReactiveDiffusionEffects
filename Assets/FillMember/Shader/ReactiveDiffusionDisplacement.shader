@@ -24,7 +24,7 @@
 	float4 accumulatedMotionVector_TexelSize;
 
 	float texelSize;
-	
+
 	float feedRate;
 	float killRate;
 
@@ -75,7 +75,7 @@
 		return half4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
 
-	half4 frag_disp(v2f_img source) : SV_Target {
+	half4 frag_disp_full(v2f_img source) : SV_Target {
 
 		float2 uv = source.uv;
 		float4 simulation = tex2D( rdTex , uv );
@@ -134,10 +134,11 @@
 			ENDCG
 		}
 
+
 		Pass {
 			CGPROGRAM
 			#pragma vertex vert_img
-			#pragma fragment frag_disp
+			#pragma fragment frag_disp_distort
 			#pragma target 3.0
 			ENDCG
 		}
@@ -145,7 +146,7 @@
 		Pass {
 			CGPROGRAM
 			#pragma vertex vert_img
-			#pragma fragment frag_disp_distort
+			#pragma fragment frag_disp_full
 			#pragma target 3.0
 			ENDCG
 		}

@@ -1,77 +1,73 @@
-//
-// Kino/Datamosh - Glitch effect simulating video compression artifacts
-//
-// Copyright (C) 2016 Keijiro Takahashi
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
 using UnityEngine;
 using UnityEditor;
 
 namespace FillMember
 {
 
-    [CanEditMultipleObjects]
-    [CustomEditor(typeof(ReactiveDiffusionDisplacement))]
-    public class ReactiveDiffusionDisplacementEditor : Editor
-    {
+		[CanEditMultipleObjects]
+		[CustomEditor(typeof(ReactiveDiffusionDisplacement))]
+		public class ReactiveDiffusionDisplacementEditor : Editor {
 
-  //       SerializedProperty _blockSize;
-  //       SerializedProperty _entropy;
-  //       SerializedProperty _noiseContrast;
-  //       SerializedProperty _velocityScale;
-  //       SerializedProperty _diffusion;
-		// SerializedProperty _fade;
+			SerializedProperty iterations;
+			SerializedProperty feedRate;
+			SerializedProperty killRate;
+			SerializedProperty texelSize;
+			SerializedProperty decayRate;
+			SerializedProperty displacePositionOnly;
 
-        void OnEnable()
-        {
-   //          _blockSize = serializedObject.FindProperty("_blockSize");
-   //          _entropy = serializedObject.FindProperty("_entropy");
-   //          _noiseContrast = serializedObject.FindProperty("_noiseContrast");
-   //          _velocityScale = serializedObject.FindProperty("_velocityScale");
-   //          _diffusion = serializedObject.FindProperty("_diffusion");
-			// _fade = serializedObject.FindProperty("_fade");
-        }
+			public int selGridInt = 0;
+			public string[] selStrings = new string[] {"radio1", "radio2", "radio3"};
 
-        public override void OnInspectorGUI()
-        {
-            // serializedObject.Update();
+			void OnEnable() {
 
-            // EditorGUILayout.PropertyField(_blockSize);
-            // EditorGUILayout.PropertyField(_entropy);
-            // EditorGUILayout.PropertyField(_noiseContrast);
-            // EditorGUILayout.PropertyField(_velocityScale);
-            // EditorGUILayout.PropertyField(_diffusion);
-            // EditorGUILayout.PropertyField(_fade);
+				iterations = serializedObject.FindProperty("iterations");
+				feedRate = serializedObject.FindProperty("feedRate");
+				killRate = serializedObject.FindProperty("killRate");
+				texelSize = serializedObject.FindProperty("texelSize");
+				decayRate = serializedObject.FindProperty("decayRate");
+				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
 
-            // serializedObject.ApplyModifiedProperties();
+			}
 
-            // EditorGUI.BeginDisabledGroup(!EditorApplication.isPlaying);
+			public override void OnInspectorGUI() {
 
-            // if (GUILayout.Button("Glitch!"))
-            //     foreach (ReactiveDiffusionDisplacement d in targets) d.Glitch(); 
+				serializedObject.Update();
 
-            // if (GUILayout.Button("Clear"))
-            //     foreach (ReactiveDiffusionDisplacement d in targets) d.Reset();
+				EditorGUILayout.PropertyField( iterations );
+				EditorGUILayout.PropertyField( feedRate );
+				EditorGUILayout.PropertyField( killRate );
+				EditorGUILayout.PropertyField( texelSize );
+				EditorGUILayout.PropertyField( decayRate );
+				EditorGUILayout.PropertyField( displacePositionOnly );
 
-            // EditorGUI.EndDisabledGroup ();
-            
-        }
-    }
+				serializedObject.ApplyModifiedProperties();
+
+				EditorGUI.BeginDisabledGroup(!EditorApplication.isPlaying);
+				EditorGUILayout.BeginHorizontal();
+
+				if ( GUILayout.Button("Clear") ) {
+
+					foreach ( ReactiveDiffusionDisplacement d in targets ) d.StopEffect();
+
+				}
+
+				if ( GUILayout.Button("Start") ) {
+
+					foreach ( ReactiveDiffusionDisplacement d in targets ) d.StartEffect();
+
+				}
+
+				if ( GUILayout.Button("Debug") ) {
+
+					foreach ( ReactiveDiffusionDisplacement d in targets ) d.RDDebug();
+
+				}
+
+				EditorGUILayout.EndHorizontal();
+				EditorGUI.EndDisabledGroup ();
+
+			}
+
+		}
+
 }
