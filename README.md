@@ -1,5 +1,4 @@
-# Shader_RDD
-Unity Reactive Diffusion Displacement Shader
+# Unity Reactive Diffusion Displacement Shader
 
 ## Introduction
 
