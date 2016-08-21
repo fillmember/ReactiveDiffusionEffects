@@ -8,16 +8,16 @@ namespace FillMember {
 
 		#region Public properties and methods
 
-		[SerializeField , Range(1,32)]
-		[Tooltip("simulation iterations per frame")]
+		[SerializeField , Range(1,16)]
+		[Tooltip("Simulation iterations per frame. Higher value results in faster simulation but bad for performance. ")]
 		public uint iterations = 2;
 
-		[Tooltip("Feed rate of reactive diffusion simulation")]
 		[SerializeField , Range(0.0050f,0.1110f)]
+		[Tooltip("Feed rate of reactive diffusion simulation. ")]
 		public float feedRate = 0.03500f;
 
-		[Tooltip("Kill rate of reactive diffusion simulation")]
 		[SerializeField , Range(0.0300f,0.0740f)]
+		[Tooltip("Kill rate of reactive diffusion simulation. ")]
 		public float killRate = 0.06400f;
 
 		[SerializeField , Range(0.0001f,0.005f)]
@@ -70,7 +70,15 @@ namespace FillMember {
 
 		public void StartEffect(){
 
-			state = 1;
+			if (state == 0) {
+
+				state = 1;
+
+			} else {
+
+				state = 2;
+
+			}
 
 		}
 
