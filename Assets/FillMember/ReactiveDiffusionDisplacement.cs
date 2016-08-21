@@ -12,12 +12,12 @@ namespace FillMember {
 		[Tooltip("simulation iterations per frame")]
 		public uint iterations = 2;
 
-		[SerializeField , Range(0,0.2f)]
 		[Tooltip("Feed rate of reactive diffusion simulation")]
+		[SerializeField , Range(0.0050f,0.1110f)]
 		public float feedRate = 0.03500f;
 
-		[SerializeField , Range(0,0.2f)]
 		[Tooltip("Kill rate of reactive diffusion simulation")]
+		[SerializeField , Range(0.0300f,0.0740f)]
 		public float killRate = 0.06400f;
 
 		[SerializeField , Range(0.0001f,0.005f)]
