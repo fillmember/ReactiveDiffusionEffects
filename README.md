@@ -4,7 +4,7 @@
 
 A Unity image effect making displacement based on reactive diffusion algorithm. 
 
-More reactive diffusion stuff: <fillmember.github.io/rdtoy/>
+More reactive diffusion stuff: [fillmember.github.io/rdtoy/](fillmember.github.io/rdtoy/)
 
 ## Requirement
 
