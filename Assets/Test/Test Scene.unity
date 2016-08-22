@@ -116,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 40108345}
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.099999994, y: 0.145, z: -0.59999996}
+  m_LocalPosition: {x: 0.227, y: 0.172, z: -0.658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -311,10 +311,10 @@ Transform:
   m_PrefabParentObject: {fileID: 400006, guid: 9c65d0d504e534971824f95f42571f3a, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 88856689}
-  m_LocalRotation: {x: 1.9355625e-24, y: -0.70710677, z: 1.9355625e-24, w: 0.7071068}
-  m_LocalPosition: {x: -0.5, y: 0.055, z: -0.7}
+  m_LocalRotation: {x: 0.10718971, y: -0.69891435, z: -0.09611846, w: 0.7005643}
+  m_LocalPosition: {x: -0.766, y: 0.385, z: -0.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.897, y: -89.997, z: -16.222}
   m_Children: []
   m_Father: {fileID: 775215676}
   m_RootOrder: 13
@@ -409,10 +409,10 @@ Transform:
   m_PrefabParentObject: {fileID: 400028, guid: 9c65d0d504e534971824f95f42571f3a, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 162999076}
-  m_LocalRotation: {x: -6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
-  m_LocalPosition: {x: -0.5, y: 0.097, z: -0.29999998}
+  m_LocalRotation: {x: -0.10947104, y: 0.99399, z: -5.4161166e-17, w: -6.7567494e-17}
+  m_LocalPosition: {x: -0.343, y: 0.132, z: -0.29999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: -12.279}
   m_Children: []
   m_Father: {fileID: 775215676}
   m_RootOrder: 6
@@ -606,7 +606,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 206413737}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0658141e-16, y: 0.073, z: -0.79999995}
+  m_LocalPosition: {x: -1.0658141e-16, y: 0.073, z: -0.917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -890,10 +890,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iterations: 2
-  feedRate: 0.035
-  killRate: 0.064
-  texelSize: 0.0015
-  decayRate: 0.98
+  feedRate: 0.02
+  killRate: 0.06
+  texelSize: 0.00079
+  decayRate: 0.995
   displacePositionOnly: 0
   state: 0
 --- !u!1 &569248204
@@ -1259,7 +1259,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822704362}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.173, z: -0.126}
+  m_LocalPosition: {x: 0.168, y: 0.173, z: -0.126}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1356,10 +1356,10 @@ Transform:
   m_PrefabParentObject: {fileID: 400020, guid: 9c65d0d504e534971824f95f42571f3a, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 977358900}
-  m_LocalRotation: {x: 0.7071068, y: 4.3297803e-17, z: -0.70710677, w: 4.3297803e-17}
-  m_LocalPosition: {x: -0.39999998, y: 0.39999998, z: -0.000000023930392}
+  m_LocalRotation: {x: 0.632451, y: -0.3162369, z: -0.63245094, w: 0.31623685}
+  m_LocalPosition: {x: -0.845, y: 0.907, z: -0.294}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -127.12401}
   m_Children: []
   m_Father: {fileID: 775215676}
   m_RootOrder: 2
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd0908f5be2345bb81635662a4adb54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wigglePosition: {x: 0, y: 0, z: 0.2}
+  wigglePosition: {x: 0.2, y: 0, z: 0.01}
   wiggleRotation: {x: 0, y: 0, z: 0}
   frequency: 2
   aim: 0
@@ -1982,7 +1982,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1704702908}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 0.062, z: 0}
+  m_LocalPosition: {x: -0.513, y: 0.062, z: -0.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
