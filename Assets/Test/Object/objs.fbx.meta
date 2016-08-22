@@ -1,0 +1,156 @@
+fileFormatVersion: 2
+guid: 9c65d0d504e534971824f95f42571f3a
+timeCreated: 1471861550
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: CINEMA_4D_Editor
+    100002: //RootNode
+    100004: obstacle
+    100006: obstacle_10
+    100008: obstacle_11
+    100010: obstacle_12
+    100012: obstacle_13
+    100014: obstacle_14
+    100016: obstacle_15
+    100018: obstacle_2
+    100020: obstacle_3
+    100022: obstacle_4
+    100024: obstacle_5
+    100026: obstacle_6
+    100028: obstacle_7
+    100030: obstacle_8
+    100032: obstacle_9
+    100034: room
+    400000: CINEMA_4D_Editor
+    400002: //RootNode
+    400004: obstacle
+    400006: obstacle_10
+    400008: obstacle_11
+    400010: obstacle_12
+    400012: obstacle_13
+    400014: obstacle_14
+    400016: obstacle_15
+    400018: obstacle_2
+    400020: obstacle_3
+    400022: obstacle_4
+    400024: obstacle_5
+    400026: obstacle_6
+    400028: obstacle_7
+    400030: obstacle_8
+    400032: obstacle_9
+    400034: room
+    2300000: obstacle
+    2300002: obstacle_10
+    2300004: obstacle_11
+    2300006: obstacle_12
+    2300008: obstacle_13
+    2300010: obstacle_14
+    2300012: obstacle_15
+    2300014: obstacle_2
+    2300016: obstacle_3
+    2300018: obstacle_4
+    2300020: obstacle_5
+    2300022: obstacle_6
+    2300024: obstacle_7
+    2300026: obstacle_8
+    2300028: obstacle_9
+    2300030: room
+    3300000: obstacle
+    3300002: obstacle_10
+    3300004: obstacle_11
+    3300006: obstacle_12
+    3300008: obstacle_13
+    3300010: obstacle_14
+    3300012: obstacle_15
+    3300014: obstacle_2
+    3300016: obstacle_3
+    3300018: obstacle_4
+    3300020: obstacle_5
+    3300022: obstacle_6
+    3300024: obstacle_7
+    3300026: obstacle_8
+    3300028: obstacle_9
+    3300030: room
+    4300000: room
+    4300002: obstacle
+    4300004: obstacle_2
+    4300006: obstacle_3
+    4300008: obstacle_4
+    4300010: obstacle_5
+    4300012: obstacle_6
+    4300014: obstacle_7
+    4300016: obstacle_8
+    4300018: obstacle_9
+    4300020: obstacle_10
+    4300022: obstacle_11
+    4300024: obstacle_12
+    4300026: obstacle_13
+    4300028: obstacle_14
+    4300030: obstacle_15
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
