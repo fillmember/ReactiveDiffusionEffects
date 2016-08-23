@@ -1,4 +1,4 @@
-# Unity Reactive Diffusion Displacement Effect
+# Reactive Diffusion Effects
 
 ## Introduction
 
