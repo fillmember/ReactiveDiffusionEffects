@@ -60,7 +60,7 @@
 		float2 dst = v0 + float2(du, dv) * 0.9;
 		dst.g += min(0.5,length(mv));
 
-		return float4( dst , mv.rg );
+		return fixed4( dst , mv.rg );
 
 	}
 
