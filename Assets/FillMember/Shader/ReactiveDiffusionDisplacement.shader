@@ -36,8 +36,7 @@
 
 	fixed4 frag_rd(v2f_img source) : SV_Target {
 
-		float2 v0 = tex2D( rdTex , source.uv ).rg ;
-
+		float2 v0 = tex2D( rdTex , source.uv ).rg;
 		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
 
 		float laplaceFactor = lerp( 0.0 , 1.1 , length(mv) );
