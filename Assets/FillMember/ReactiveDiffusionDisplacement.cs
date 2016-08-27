@@ -158,7 +158,7 @@ namespace FillMember {
 
 				// Render : copy source to destination
 				Graphics.SetRenderTarget (null);
-				Graphics.Blit (source, destination);
+				Graphics.Blit (workBuffer, destination);
 
 
 			} else if (state == 1) {
