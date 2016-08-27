@@ -39,32 +39,33 @@
 
 	// Vertex Shader
 
-	v2f_img vert(appdata_img v) {
+	struct v2f {
+		float4 pos : SV_POSITION;
+		float2 uv : TEXCOORD0;
+	};
 
-		v2f_img o;
+	v2f vert(appdata_full v) {
+
+		v2f o;
 
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.uv = v.texcoord.xy;
 		
-		#ifdef UNITY_HALF_TEXEL_OFFSET
-			v.texcoord.y += _MainTex_TexelSize.y;
-		#endif
-		
-		#if UNITY_UV_STARTS_AT_TOP
-			if (_MainTex_TexelSize.y < 0)
-				v.texcoord.y = 1.0 - v.texcoord.y;
-		#endif
-		
-		o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord);
+	#if UNITY_UV_STARTS_AT_TOP
+		if (_MainTex_TexelSize.y < 0.0) {
+			o.uv.y = 1.0 - v.texcoord.y;
+		}
+	#endif
 
 		return o;
 	}
 
 	// Fragment Shader
 
-	float4 frag_rd(v2f_img source) : SV_Target {
+	float4 frag_rd(v2f source) : SV_Target {
 
 		float2 v0 = tex2D( _rdTex , source.uv ).rg;
-		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
+		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
 
 		float laplaceFactor = lerp( 0.0 , 1.1 , length(mv) );
 		float claplaceFactor = (1 - laplaceFactor) * 0.25;
@@ -90,17 +91,17 @@
 
 	}
 
-	float4 frag_init(v2f_img source) : SV_Target {
+	float4 frag_init(v2f source) : SV_Target {
 		return float4(0, 0, 0, 0);
 	}
 
-	float4 frag_update(v2f_img source) : SV_Target {
+	float4 frag_update(v2f source) : SV_Target {
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).xy;
 		float2 amv = tex2D( _motionBuffer , source.uv ).xy;
 		return float4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
 
-	float4 frag_disp_full(v2f_img source) : SV_Target {
+	float4 frag_disp_full(v2f source) : SV_Target {
 
 		float2 uv = source.uv;
 		float4 _rd = tex2D( _rdTex , uv );
@@ -115,7 +116,7 @@
 
 	}
 
-	float4 frag_disp_distort(v2f_img source) : SV_Target {
+	float4 frag_disp_distort(v2f source) : SV_Target {
 
 		float2 uv = source.uv;
 		float4 _rd = tex2D( _rdTex , uv );
