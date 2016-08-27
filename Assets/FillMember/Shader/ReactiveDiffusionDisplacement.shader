@@ -71,7 +71,7 @@
 		float claplaceFactor = (1 - laplaceFactor) * 0.25;
 
 		float2 laplace =
-			+ laplaceFactor * tex2D( _rdTex , source.uv + mv ).rg
+			laplaceFactor * tex2D( _rdTex , source.uv + mv ).rg
 			+ claplaceFactor * (
 				tex2D( _rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg +
 				tex2D( _rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg +
@@ -132,8 +132,7 @@
 	SubShader {
 
 		Pass {
-			ZTest Always Cull Off ZWrite Off
-			Fog { Mode Off }
+			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_init
@@ -142,8 +141,7 @@
 		}
 
 		Pass {
-			ZTest Always Cull Off ZWrite Off
-			Fog { Mode Off }
+			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_rd
@@ -152,8 +150,7 @@
 		}
 
 		Pass {
-			ZTest Always Cull Off ZWrite Off
-			Fog { Mode Off }
+			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_update
@@ -163,8 +160,7 @@
 
 
 		Pass {
-			ZTest Always Cull Off ZWrite Off
-			Fog { Mode Off }
+			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_disp_distort
@@ -173,8 +169,7 @@
 		}
 
 		Pass {
-			ZTest Always Cull Off ZWrite Off
-			Fog { Mode Off }
+			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_disp_full
