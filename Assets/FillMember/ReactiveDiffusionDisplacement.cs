@@ -54,7 +54,9 @@ namespace FillMember {
 		}
 
 		RenderTexture NewBuffer(RenderTexture source) {
-			return RenderTexture.GetTemporary(source.width, source.height);
+			RenderTexture rt = RenderTexture.GetTemporary(source.width, source.height);
+			rt.filterMode = FilterMode.Point;
+			return rt;
 		}
 
 		#endregion
@@ -195,7 +197,7 @@ namespace FillMember {
 
 				Graphics.SetRenderTarget (null);
 				Graphics.Blit (workBuffer, destination);
-
+				
 			} else if (state == 3) {
 
 				Simulate();
