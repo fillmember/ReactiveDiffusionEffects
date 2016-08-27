@@ -61,7 +61,7 @@
 
 	// Fragment Shader
 
-	fixed4 frag_rd(v2f_img source) : SV_Target {
+	float4 frag_rd(v2f_img source) : SV_Target {
 
 		float2 v0 = tex2D( _rdTex , source.uv ).rg;
 		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
@@ -86,21 +86,21 @@
 		float2 dst = v0 + float2(du, dv) * 0.9;
 		dst.g += min(0.5,length(mv));
 
-		return fixed4( dst , mv.rg );
+		return float4( dst , mv.rg );
 
 	}
 
-	half4 frag_init(v2f_img source) : SV_Target {
-		return half4( 0.0 , 0.0 , 0.0 , 1.0 );
+	float4 frag_init(v2f_img source) : SV_Target {
+		return float4(0, 0, 0, 0);
 	}
 
-	half4 frag_update(v2f_img source) : SV_Target {
+	float4 frag_update(v2f_img source) : SV_Target {
 		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		half2 amv = tex2D( _motionBuffer , source.uv ).rg;
-		return half4( (amv + mv) * decayRate , 0.0 , 1.0 );
+		float4 amv = tex2D( _motionBuffer , source.uv ).rg;
+		return float4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
 
-	half4 frag_disp_full(v2f_img source) : SV_Target {
+	float4 frag_disp_full(v2f_img source) : SV_Target {
 
 		float2 uv = source.uv;
 		float4 _rd = tex2D( _rdTex , uv );
@@ -111,18 +111,18 @@
 		float4 _work = tex2D( _workBuffer , uv );
 		float4 blend = lerp( _main , _work , 0.8 + _rd.g );
 
-		return half4( lerp( blend , _main_disp , _rd.g ).rgb , 1.0 );
+		return float4( lerp( blend , _main_disp , _rd.g ).rgb , 1.0 );
 
 	}
 
-	half4 frag_disp_distort(v2f_img source) : SV_Target {
+	float4 frag_disp_distort(v2f_img source) : SV_Target {
 
 		float2 uv = source.uv;
 		float4 _rd = tex2D( _rdTex , uv );
 		float4 _motion = tex2D( _motionBuffer , uv );
 		float4 _main_disp = tex2D( _MainTex , uv + (_rd.ba + _motion.rg) * _rd.g );
 
-		return half4( _main_disp.rgb , 1.0 );
+		return float4( _main_disp.rgb , 1.0 );
 
 	}
 
