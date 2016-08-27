@@ -67,10 +67,10 @@
 	float4 frag_rd(v2f source) : SV_Target {
 
 		float2 v0 = tex2D( _rdTex , source.uv ).rg;
-		float2 v1 = tex2D( _rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg;
-		float2 v2 = tex2D( _rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg;
-		float2 v3 = tex2D( _rdTex , source.uv + float2(  texelSize , 0.0 ) ).rg;
-		float2 v4 = tex2D( _rdTex , source.uv + float2( 0.0 ,  texelSize ) ).rg;
+		float2 v1 = tex2D( _rdTex , source.uv + float2( -1 * texelSize , 0.0 ) ).rg;
+		float2 v2 = tex2D( _rdTex , source.uv + float2( 0.0 , -1 * texelSize ) ).rg;
+		float2 v3 = tex2D( _rdTex , source.uv + float2( texelSize , 0.0 ) ).rg;
+		float2 v4 = tex2D( _rdTex , source.uv + float2( 0.0 , texelSize ) ).rg;
 
 		float2 laplace = 0.25 * ( v1 + v2 + v3 + v4 ) - v0;
 
