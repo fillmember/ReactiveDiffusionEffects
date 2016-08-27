@@ -7,17 +7,17 @@
 
 	}
 
-    CGINCLUDE
+	CGINCLUDE
 
-    #include "UnityCG.cginc"
+	#include "UnityCG.cginc"
 
-    sampler2D _MainTex;
-    float4 _MainTex_TexelSize;
+	sampler2D _MainTex;
+	float4 _MainTex_TexelSize;
 
-    sampler2D rdTex;
+	sampler2D rdTex;
 	float4 rdTex_TexelSize;
 
-    sampler2D originalTex;
+	sampler2D originalTex;
 	float4 originalTex_TexelSize;
 
 	sampler2D accumulatedMotionVector;
