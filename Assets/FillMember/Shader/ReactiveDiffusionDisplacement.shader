@@ -64,28 +64,23 @@
 
 	float4 frag_rd(v2f source) : SV_Target {
 
-		float2 v0 = tex2D( _rdTex , source.uv ).rg;
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
+		float mv_len = length( mv );
 
-		float laplaceFactor = lerp( 0.0 , 1.1 , length(mv) );
-		float claplaceFactor = (1 - laplaceFactor) * 0.25;
+		float2 v0 = tex2D( _rdTex , source.uv ).rg;
+		float2 v1 = tex2D( _rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg;
+		float2 v2 = tex2D( _rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg;
+		float2 v3 = tex2D( _rdTex , source.uv + float2(  texelSize , 0.0 ) ).rg;
+		float2 v4 = tex2D( _rdTex , source.uv + float2( 0.0 ,  texelSize ) ).rg;
 
-		float2 laplace =
-			laplaceFactor * tex2D( _rdTex , source.uv + mv ).rg
-			+ claplaceFactor * (
-				tex2D( _rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg +
-				tex2D( _rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg +
-				tex2D( _rdTex , source.uv + float2(  texelSize , 0.0 ) ).rg +
-				tex2D( _rdTex , source.uv + float2( 0.0 ,  texelSize ) ).rg
-			)
-			- v0;
+		float2 laplace = 0.25 * ( v1 + v2 + v3 + v4 ) - v0;
 
 		float reaction = v0.r * v0.g * v0.g;
 		float du = 1.0 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
 		float dv = 0.5 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
 
 		float2 dst = v0 + float2(du, dv) * 0.9;
-		dst.g += min(0.5,length(mv));
+		dst.g = lerp( dst.g , 1.0 , mv_len);
 
 		return float4( dst , mv.rg );
 
