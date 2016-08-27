@@ -3,7 +3,10 @@
 	Properties
 	{
 
-		_MainTex("", 2D) = ""{}
+		_MainTex("", 2D) = "" {}
+		_rdTex("", 2D) = "red" {}
+		_workBuffer("", 2D) = "black" {}
+		_motionBuffer("", 2D) = "black" {}
 
 	}
 
