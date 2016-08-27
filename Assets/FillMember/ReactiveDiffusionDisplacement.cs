@@ -45,7 +45,7 @@ namespace FillMember {
 
 		RenderTexture rdBuffer = null;
 		RenderTexture workBuffer = null;
-		RenderTexture accumulated = null;
+		RenderTexture motionBuffer = null;
 
 		int lastFrame;
 
@@ -97,7 +97,7 @@ namespace FillMember {
 				material.SetFloat ("feedRate", feedRate);
 				material.SetFloat ("texelSize", texelSize);
 
-				material.SetTexture ("rdTex", rdBuffer);
+				material.SetTexture ("_rdTex", rdBuffer);
 
 				Graphics.SetRenderTarget (rdBuffer);
 
@@ -134,10 +134,10 @@ namespace FillMember {
 			// Buffers
 			ReleaseBuffer (rdBuffer);
 			ReleaseBuffer (workBuffer);
-			ReleaseBuffer (accumulated);
+			ReleaseBuffer (motionBuffer);
 			rdBuffer = null;
 			workBuffer = null;
-			accumulated = null;
+			motionBuffer = null;
 
 		}
 
@@ -152,7 +152,7 @@ namespace FillMember {
 				Graphics.Blit (source, workBuffer);
 
 				// Material
-				material.SetTexture ("originalTex", workBuffer);
+				material.SetTexture ("_workBuffer", workBuffer);
 
 				// Render : copy source to destination
 				Graphics.SetRenderTarget (null);
@@ -167,11 +167,11 @@ namespace FillMember {
 				Graphics.SetRenderTarget (rdBuffer);
 				Graphics.Blit (source, rdBuffer);
 
-				// accumulated
-				ReleaseBuffer( accumulated );
-				accumulated = NewBuffer( source );
-				Graphics.SetRenderTarget (accumulated);
-				Graphics.Blit (null, accumulated, material, 0);
+				// motionBuffer
+				ReleaseBuffer( motionBuffer );
+				motionBuffer = NewBuffer( source );
+				Graphics.SetRenderTarget (motionBuffer);
+				Graphics.Blit (null, motionBuffer, material, 0);
 
 				state = 2;
 
@@ -179,11 +179,11 @@ namespace FillMember {
 
 				Simulate();
 
-				// calculate accumulated
-				material.SetTexture ("accumulatedMotionVector", accumulated);
+				// calculate motionBuffer
+				material.SetTexture ("_motionBuffer", motionBuffer);
 				material.SetFloat ("decayRate", decayRate);
-				Graphics.SetRenderTarget (accumulated);
-				Graphics.Blit (null, accumulated, material, 2);
+				Graphics.SetRenderTarget (motionBuffer);
+				Graphics.Blit (null, motionBuffer, material, 2);
 
 				// write to destination
 				Graphics.SetRenderTarget (workBuffer);

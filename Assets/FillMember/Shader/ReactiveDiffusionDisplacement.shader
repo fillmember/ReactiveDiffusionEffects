@@ -14,14 +14,14 @@
 	sampler2D _MainTex;
 	float4 _MainTex_TexelSize;
 
-	sampler2D rdTex;
-	float4 rdTex_TexelSize;
+	sampler2D _rdTex;
+	float4 _rdTex_TexelSize;
 
-	sampler2D originalTex;
-	float4 originalTex_TexelSize;
+	sampler2D _workBuffer;
+	float4 _workBuffer_TexelSize;
 
-	sampler2D accumulatedMotionVector;
-	float4 accumulatedMotionVector_TexelSize;
+	sampler2D _motionBuffer;
+	float4 _motionBuffer_TexelSize;
 
 	float texelSize;
 
@@ -52,7 +52,7 @@
 		#endif
 		
 		o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord);
-		
+
 		return o;
 	}
 
@@ -60,19 +60,19 @@
 
 	fixed4 frag_rd(v2f_img source) : SV_Target {
 
-		float2 v0 = tex2D( rdTex , source.uv ).rg;
+		float2 v0 = tex2D( _rdTex , source.uv ).rg;
 		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
 
 		float laplaceFactor = lerp( 0.0 , 1.1 , length(mv) );
 		float claplaceFactor = (1 - laplaceFactor) * 0.25;
 
 		float2 laplace =
-			+ laplaceFactor * tex2D( rdTex , source.uv + mv ).rg
+			+ laplaceFactor * tex2D( _rdTex , source.uv + mv ).rg
 			+ claplaceFactor * (
-				tex2D( rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg +
-				tex2D( rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg +
-				tex2D( rdTex , source.uv + float2(  texelSize , 0.0 ) ).rg +
-				tex2D( rdTex , source.uv + float2( 0.0 ,  texelSize ) ).rg
+				tex2D( _rdTex , source.uv + float2( -texelSize , 0.0 ) ).rg +
+				tex2D( _rdTex , source.uv + float2( 0.0 , -texelSize ) ).rg +
+				tex2D( _rdTex , source.uv + float2(  texelSize , 0.0 ) ).rg +
+				tex2D( _rdTex , source.uv + float2( 0.0 ,  texelSize ) ).rg
 			)
 			- v0;
 
@@ -93,35 +93,33 @@
 
 	half4 frag_update(v2f_img source) : SV_Target {
 		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		half2 amv = tex2D( accumulatedMotionVector , source.uv ).rg;
+		half2 amv = tex2D( _motionBuffer , source.uv ).rg;
 		return half4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
 
 	half4 frag_disp_full(v2f_img source) : SV_Target {
 
 		float2 uv = source.uv;
-		float4 simulation = tex2D( rdTex , uv );
-		float4 acc = tex2D( accumulatedMotionVector , uv );
+		float4 _rd = tex2D( _rdTex , uv );
+		float4 _motion = tex2D( _motionBuffer , uv );
+		float4 _main_disp = tex2D( _MainTex , uv + (_rd.ba + _motion.rg) * _rd.g );
 
-		float2 newUv = uv + (simulation.ba + acc.rg) * simulation.g;
+		float4 _main = tex2D( _MainTex , uv );
+		float4 _work = tex2D( _workBuffer , uv );
+		float4 blend = lerp( _main , _work , 0.8 + _rd.g );
 
-		float4 main = tex2D( _MainTex , uv );
-		float4 original = tex2D( originalTex , uv );
-		float4 disp = tex2D( _MainTex , newUv );
-		float4 work = lerp( main , original , 0.8 + simulation.g );
-
-		return half4( lerp( work , disp , simulation.g ).rgb , 1.0 );
+		return half4( lerp( blend , _main_disp , _rd.g ).rgb , 1.0 );
 
 	}
 
 	half4 frag_disp_distort(v2f_img source) : SV_Target {
 
 		float2 uv = source.uv;
-		float4 simulation = tex2D( rdTex , uv );
-		float4 acc = tex2D( accumulatedMotionVector , uv );
-		float4 disp = tex2D( _MainTex , uv + (simulation.ba + acc.rg) * simulation.g );
+		float4 _rd = tex2D( _rdTex , uv );
+		float4 _motion = tex2D( _motionBuffer , uv );
+		float4 _main_disp = tex2D( _MainTex , uv + (_rd.ba + _motion.rg) * _rd.g );
 
-		return half4( disp.rgb , 1.0 );
+		return half4( _main_disp.rgb , 1.0 );
 
 	}
 
