@@ -109,22 +109,37 @@
 		return float4( blend , 0.0 , 1.0 );
 	}
 
-	float4 frag_disp_full(v2f source) : SV_Target {
-
-		float2 uv = source.uv;
-
-		float2 _rd = tex2D( _rdTex , uv ).rg;
-		float2 _motion = tex2D( _motionBuffer , uv ).rg;
-
+	float3 displace( v2f source , float intensity ) {
+		
+		float2 _rd = tex2D( _rdTex , source.uv ).rg;
+		float2 _motion = tex2D( _motionBuffer , source.uv ).rg;
 		float2 _mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		float2 newUV = uv + (_mv + _motion.rg) * _rd.g;
+
+		float2 newUV = source.uv + (_mv + _motion.rg) * _rd.g * intensity;
 
 		float3 _main_disp = tex2D( _MainTex , newUV ).rgb;
 
+		return _main_disp;
+
+	}
+
+	float4 frag_disp_distort(v2f source) : SV_Target {
+
+		float3 _main_disp = displace( source , dryWet );
+
+		return float4( _main_disp , 1.0 );
+
+	}
+
+	float4 frag_disp_full(v2f source) : SV_Target {
+
+		float3 _main_disp = displace( source , 1 );
+
 		// color blend
 
-		float3 _main = tex2D( _MainTex , uv ).rgb;
-		float3 _work = tex2D( _workBuffer , uv ).rgb;
+		float2 _rd = tex2D( _rdTex , source.uv ).rg;
+		float3 _main = tex2D( _MainTex , source.uv ).rgb;
+		float3 _work = tex2D( _workBuffer , source.uv ).rgb;
 
 		float v = lerp( dryWet , 1.0 , _rd.g );
 		
@@ -133,22 +148,6 @@
 		float3 final = lerp( blend , _main_disp , _rd.g ).rgb;
 
 		return float4( final , 1.0 );
-
-	}
-
-	float4 frag_disp_distort(v2f source) : SV_Target {
-
-		float2 uv = source.uv;
-		
-		float2 _rd = tex2D( _rdTex , uv ).rg;
-		float2 _motion = tex2D( _motionBuffer , uv ).rg;
-
-		float2 _mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		float2 newUV = uv + (_mv + _motion.rg) * _rd.g * dryWet;
-
-		float3 _main_disp = tex2D( _MainTex , newUV ).rgb;
-
-		return float4( _main_disp , 1.0 );
 
 	}
 
