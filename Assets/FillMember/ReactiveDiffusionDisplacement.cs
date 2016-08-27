@@ -28,6 +28,10 @@ namespace FillMember {
 		[Tooltip("Displacement decay rate")]
 		public float decayRate = 0.98f;
 
+		[SerializeField , Range(0,1)]
+		[Tooltip("Dry / Wet")]
+		public float dryWet = 0.8f;
+
 		[SerializeField]
 		public bool displacePositionOnly = false;
 
@@ -142,6 +146,7 @@ namespace FillMember {
 			material.SetTexture ("_rdTex", rdBuffer);
 
 			material.SetFloat ("decayRate", decayRate);
+			material.SetFloat ("dryWet", dryWet);
 			material.SetFloat ("killRate", killRate);
 			material.SetFloat ("feedRate", feedRate);
 			material.SetFloat ("texelSize", texelSize);

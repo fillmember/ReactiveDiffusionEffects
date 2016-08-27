@@ -13,6 +13,7 @@ namespace FillMember
 			SerializedProperty killRate;
 			SerializedProperty texelSize;
 			SerializedProperty decayRate;
+			SerializedProperty dryWet;
 			SerializedProperty displacePositionOnly;
 
 			public int selGridInt = 0;
@@ -25,6 +26,7 @@ namespace FillMember
 				killRate = serializedObject.FindProperty("killRate");
 				texelSize = serializedObject.FindProperty("texelSize");
 				decayRate = serializedObject.FindProperty("decayRate");
+				dryWet = serializedObject.FindProperty("dryWet");
 				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
 
 			}
@@ -38,6 +40,7 @@ namespace FillMember
 				EditorGUILayout.PropertyField( killRate );
 				EditorGUILayout.PropertyField( texelSize );
 				EditorGUILayout.PropertyField( decayRate );
+				EditorGUILayout.PropertyField( dryWet );
 				EditorGUILayout.PropertyField( displacePositionOnly );
 
 				serializedObject.ApplyModifiedProperties();
