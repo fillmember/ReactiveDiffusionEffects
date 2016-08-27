@@ -99,6 +99,8 @@ namespace FillMember {
 
 				material.SetTexture ("rdTex", rdBuffer);
 
+				Graphics.SetRenderTarget (rdBuffer);
+
 				for (int i = 0; i < iterations; i++) {
 					Graphics.Blit ( rdBuffer , rdBuffer , material, 1 );
 				}
@@ -146,12 +148,14 @@ namespace FillMember {
 				// update buffers
 				ReleaseBuffer (workBuffer);
 				workBuffer = NewBuffer (source);
+				Graphics.SetRenderTarget (workBuffer);
 				Graphics.Blit (source, workBuffer);
 
 				// Material
 				material.SetTexture ("originalTex", workBuffer);
 
 				// Render : copy source to destination
+				Graphics.SetRenderTarget (null);
 				Graphics.Blit (source, destination);
 
 
@@ -160,11 +164,13 @@ namespace FillMember {
 				// update buffers
 				ReleaseBuffer (rdBuffer);
 				rdBuffer = NewBuffer (source);
+				Graphics.SetRenderTarget (rdBuffer);
 				Graphics.Blit (source, rdBuffer);
 
 				// accumulated
 				ReleaseBuffer( accumulated );
 				accumulated = NewBuffer( source );
+				Graphics.SetRenderTarget (accumulated);
 				Graphics.Blit (source, accumulated, material, 0);
 
 				state = 2;
@@ -176,21 +182,25 @@ namespace FillMember {
 				// calculate accumulated
 				material.SetTexture ("accumulatedMotionVector", accumulated);
 				material.SetFloat ("decayRate", decayRate);
+				Graphics.SetRenderTarget (accumulated);
 				Graphics.Blit (source, accumulated, material, 2);
 
 				// write to destination
+				Graphics.SetRenderTarget (workBuffer);
 				if ( displacePositionOnly ) {
 					Graphics.Blit (source, workBuffer, material, 3);
 				} else {
 					Graphics.Blit (source, workBuffer, material, 4);
 				}
 
+				Graphics.SetRenderTarget (null);
 				Graphics.Blit (workBuffer, destination);
 
 			} else if (state == 3) {
 
 				Simulate();
 
+				Graphics.SetRenderTarget (null);
 				Graphics.Blit (rdBuffer, destination);
 
 			}
