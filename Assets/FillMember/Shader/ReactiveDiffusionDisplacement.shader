@@ -34,6 +34,24 @@
 	sampler2D_half _CameraMotionVectorsTexture;
 	float4 _CameraMotionVectorsTexture_TexelSize;
 
+	// Vertex Shader
+
+	v2f_img vert(appdata_img v) {
+		v2f_img o;
+		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		#ifdef UNITY_HALF_TEXEL_OFFSET
+			v.texcoord.y += _MainTex_TexelSize.y;
+		#endif
+		#if UNITY_UV_STARTS_AT_TOP
+			if (_MainTex_TexelSize.y < 0)
+				v.texcoord.y = 1.0 - v.texcoord.y;
+		#endif
+		o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord);
+		return o;
+	}
+
+	// Fragment Shader
+
 	fixed4 frag_rd(v2f_img source) : SV_Target {
 
 		float2 v0 = tex2D( rdTex , source.uv ).rg;
@@ -110,7 +128,7 @@
 
 		Pass {
 			CGPROGRAM
-			#pragma vertex vert_img
+			#pragma vertex vert
 			#pragma fragment frag_init
 			#pragma target 3.0
 			ENDCG
@@ -118,7 +136,7 @@
 
 		Pass {
 			CGPROGRAM
-			#pragma vertex vert_img
+			#pragma vertex vert
 			#pragma fragment frag_rd
 			#pragma target 3.0
 			ENDCG
@@ -126,7 +144,7 @@
 
 		Pass {
 			CGPROGRAM
-			#pragma vertex vert_img
+			#pragma vertex vert
 			#pragma fragment frag_update
 			#pragma target 3.0
 			ENDCG
@@ -135,7 +153,7 @@
 
 		Pass {
 			CGPROGRAM
-			#pragma vertex vert_img
+			#pragma vertex vert
 			#pragma fragment frag_disp_distort
 			#pragma target 3.0
 			ENDCG
@@ -143,7 +161,7 @@
 
 		Pass {
 			CGPROGRAM
-			#pragma vertex vert_img
+			#pragma vertex vert
 			#pragma fragment frag_disp_full
 			#pragma target 3.0
 			ENDCG
