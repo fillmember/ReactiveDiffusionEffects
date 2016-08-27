@@ -95,14 +95,6 @@ namespace FillMember {
 
 			if (Time.frameCount != lastFrame) {
 
-				material.SetFloat ("killRate", killRate);
-				material.SetFloat ("feedRate", feedRate);
-				material.SetFloat ("texelSize", texelSize);
-
-				material.SetTexture ("_rdTex", rdBuffer);
-
-				Graphics.SetRenderTarget (rdBuffer);
-
 				for (int i = 0; i < iterations; i++) {
 					Graphics.Blit ( null , rdBuffer , material, 1 );
 				}
@@ -145,19 +137,23 @@ namespace FillMember {
 
 		void OnRenderImage( RenderTexture source , RenderTexture destination ) {
 
+			material.SetTexture ("_motionBuffer", motionBuffer);
+			material.SetTexture ("_workBuffer", workBuffer);
+			material.SetTexture ("_rdTex", rdBuffer);
+
+			material.SetFloat ("decayRate", decayRate);
+			material.SetFloat ("killRate", killRate);
+			material.SetFloat ("feedRate", feedRate);
+			material.SetFloat ("texelSize", texelSize);
+
 			if (state == 0) {
 
 				// update buffers
 				ReleaseBuffer (workBuffer);
 				workBuffer = NewBuffer (source);
-				Graphics.SetRenderTarget (workBuffer);
 				Graphics.Blit (source, workBuffer);
 
-				// Material
-				material.SetTexture ("_workBuffer", workBuffer);
-
 				// Render : copy source to destination
-				Graphics.SetRenderTarget (null);
 				Graphics.Blit (workBuffer, destination);
 
 
@@ -166,13 +162,13 @@ namespace FillMember {
 				// update buffers
 				ReleaseBuffer (rdBuffer);
 				rdBuffer = NewBuffer (source);
-				Graphics.SetRenderTarget (rdBuffer);
+				
 				Graphics.Blit (source, rdBuffer);
 
 				// motionBuffer
 				ReleaseBuffer( motionBuffer );
 				motionBuffer = NewBuffer( source );
-				Graphics.SetRenderTarget (motionBuffer);
+
 				Graphics.Blit (null, motionBuffer, material, 0);
 
 				state = 2;
@@ -182,27 +178,21 @@ namespace FillMember {
 				Simulate();
 
 				// calculate motionBuffer
-				material.SetTexture ("_motionBuffer", motionBuffer);
-				material.SetFloat ("decayRate", decayRate);
-				Graphics.SetRenderTarget (motionBuffer);
 				Graphics.Blit (null, motionBuffer, material, 2);
 
 				// write to destination
-				Graphics.SetRenderTarget (workBuffer);
 				if ( displacePositionOnly ) {
 					Graphics.Blit (source, workBuffer, material, 3);
 				} else {
 					Graphics.Blit (source, workBuffer, material, 4);
 				}
 
-				Graphics.SetRenderTarget (null);
 				Graphics.Blit (workBuffer, destination);
 				
 			} else if (state == 3) {
 
 				Simulate();
 
-				Graphics.SetRenderTarget (null);
 				Graphics.Blit (rdBuffer, destination);
 
 			}
