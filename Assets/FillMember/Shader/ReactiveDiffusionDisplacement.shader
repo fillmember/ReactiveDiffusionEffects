@@ -64,7 +64,7 @@
 	}
 
 	half4 frag_init(v2f_img source) : SV_Target {
-		return 0;
+		return half4( 0.0 , 0.0 , 0.0 , 1.0 );
 	}
 
 	half4 frag_update(v2f_img source) : SV_Target {
