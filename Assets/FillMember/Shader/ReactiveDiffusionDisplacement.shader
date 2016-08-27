@@ -95,8 +95,8 @@
 	}
 
 	float4 frag_update(v2f_img source) : SV_Target {
-		half2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		float4 amv = tex2D( _motionBuffer , source.uv ).rg;
+		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).xy;
+		float2 amv = tex2D( _motionBuffer , source.uv ).xy;
 		return float4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
 
