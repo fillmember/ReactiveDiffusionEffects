@@ -37,16 +37,22 @@
 	// Vertex Shader
 
 	v2f_img vert(appdata_img v) {
+
 		v2f_img o;
+
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		
 		#ifdef UNITY_HALF_TEXEL_OFFSET
 			v.texcoord.y += _MainTex_TexelSize.y;
 		#endif
+		
 		#if UNITY_UV_STARTS_AT_TOP
 			if (_MainTex_TexelSize.y < 0)
 				v.texcoord.y = 1.0 - v.texcoord.y;
 		#endif
+		
 		o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord);
+		
 		return o;
 	}
 
