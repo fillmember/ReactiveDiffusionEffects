@@ -130,10 +130,9 @@
 
 	SubShader {
 
-		// No culling or depth
-		Cull Off ZWrite Off ZTest Always
-
 		Pass {
+			ZTest Always Cull Off ZWrite Off
+			Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_init
@@ -142,6 +141,8 @@
 		}
 
 		Pass {
+			ZTest Always Cull Off ZWrite Off
+			Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_rd
@@ -150,6 +151,8 @@
 		}
 
 		Pass {
+			ZTest Always Cull Off ZWrite Off
+			Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_update
@@ -159,6 +162,8 @@
 
 
 		Pass {
+			ZTest Always Cull Off ZWrite Off
+			Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_disp_distort
@@ -167,6 +172,8 @@
 		}
 
 		Pass {
+			ZTest Always Cull Off ZWrite Off
+			Fog { Mode Off }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag_disp_full
