@@ -102,7 +102,7 @@ namespace FillMember {
 				Graphics.SetRenderTarget (rdBuffer);
 
 				for (int i = 0; i < iterations; i++) {
-					Graphics.Blit ( rdBuffer , rdBuffer , material, 1 );
+					Graphics.Blit ( null , rdBuffer , material, 1 );
 				}
 
 				lastFrame = Time.frameCount;
@@ -171,7 +171,7 @@ namespace FillMember {
 				ReleaseBuffer( accumulated );
 				accumulated = NewBuffer( source );
 				Graphics.SetRenderTarget (accumulated);
-				Graphics.Blit (source, accumulated, material, 0);
+				Graphics.Blit (null, accumulated, material, 0);
 
 				state = 2;
 
@@ -183,7 +183,7 @@ namespace FillMember {
 				material.SetTexture ("accumulatedMotionVector", accumulated);
 				material.SetFloat ("decayRate", decayRate);
 				Graphics.SetRenderTarget (accumulated);
-				Graphics.Blit (source, accumulated, material, 2);
+				Graphics.Blit (null, accumulated, material, 2);
 
 				// write to destination
 				Graphics.SetRenderTarget (workBuffer);
