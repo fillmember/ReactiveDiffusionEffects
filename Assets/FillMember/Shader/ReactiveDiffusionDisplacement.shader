@@ -3,10 +3,10 @@
 	Properties
 	{
 
-		_MainTex("", 2D) = "" {}
-		_rdTex("", 2D) = "red" {}
-		_workBuffer("", 2D) = "black" {}
-		_motionBuffer("", 2D) = "black" {}
+		_MainTex("Main Texture", 2D) = "" {}
+		_rdTex("Reactive Diffusion Simulation Buffer", 2D) = "red" {}
+		_workBuffer("Displaced Image Buffer", 2D) = "black" {}
+		_motionBuffer("Motion Vector Buffer", 2D) = "black" {}
 
 	}
 
