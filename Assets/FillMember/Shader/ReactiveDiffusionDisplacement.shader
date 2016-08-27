@@ -14,6 +14,7 @@
 
 	#include "UnityCG.cginc"
 
+	// Textures
 	sampler2D _MainTex;
 	float4 _MainTex_TexelSize;
 
@@ -26,17 +27,16 @@
 	sampler2D _motionBuffer;
 	float4 _motionBuffer_TexelSize;
 
-	float texelSize;
-
-	float feedRate;
-	float killRate;
-
-	float decayRate;
-	float dryWet;
-
 	// Motion Vector
 	sampler2D_half _CameraMotionVectorsTexture;
 	float4 _CameraMotionVectorsTexture_TexelSize;
+
+	// Settings
+	float texelSize;
+	float feedRate;
+	float killRate;
+	float decayRate;
+	float dryWet;
 
 	// Vertex Shader
 
@@ -91,7 +91,9 @@
 	}
 
 	float4 frag_init(v2f source) : SV_Target {
+
 		return float4(0, 0, 0, 0);
+
 	}
 
 	float4 frag_update(v2f source) : SV_Target {
@@ -177,7 +179,6 @@
 			#pragma target 3.0
 			ENDCG
 		}
-
 
 		Pass {
 			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
