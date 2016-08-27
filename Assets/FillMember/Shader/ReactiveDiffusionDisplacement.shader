@@ -67,6 +67,9 @@
 		float2 v0 = tex2D( _rdTex , source.uv ).rg;
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
 
+		// Normalized screen space -> Pixel coordinates
+		mv = mv * _ScreenParams.xy;
+
 		float laplaceFactor = lerp( 0.0 , 1.1 , length(mv) );
 		float claplaceFactor = (1 - laplaceFactor) * 0.25;
 
@@ -97,6 +100,7 @@
 
 	float4 frag_update(v2f source) : SV_Target {
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).xy;
+		mv = mv * _ScreenParams.xy;
 		float2 amv = tex2D( _motionBuffer , source.uv ).xy;
 		return float4( (amv + mv) * decayRate , 0.0 , 1.0 );
 	}
