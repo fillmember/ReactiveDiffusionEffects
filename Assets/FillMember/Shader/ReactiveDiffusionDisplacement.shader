@@ -99,19 +99,6 @@
 
 	}
 
-	// float4 frag_update(v2f source) : SV_Target {
-		
-	// 	float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-	// 	// float2 amv = tex2D( _motionBuffer , source.uv ).rg;
-
-	// 	// mv = mv * _CameraMotionVectorsTexture_TexelSize.zw;
-
-	// 	float2 blend = mv + amv * decayRate;
-	// 	blend = min( float2(1,1) , blend );
-
-	// 	return float4( blend.rg , 0.0 , 1.0 );
-	// }
-
 	float3 displace( v2f source , float intensity ) {
 		
 		float4 _rd = tex2D( _rdTex , source.uv );
@@ -173,15 +160,6 @@
 			#pragma target 3.0
 			ENDCG
 		}
-
-		// Pass {
-		// 	ZTest Always Cull Off ZWrite Off Fog { Mode Off }
-		// 	CGPROGRAM
-		// 	#pragma vertex vert
-		// 	#pragma fragment frag_update
-		// 	#pragma target 3.0
-		// 	ENDCG
-		// }
 
 		Pass {
 			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
