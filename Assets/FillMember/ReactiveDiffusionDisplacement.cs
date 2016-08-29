@@ -58,8 +58,9 @@ namespace FillMember {
 			if (buffer != null) RenderTexture.ReleaseTemporary(buffer);
 		}
 
-		RenderTexture NewBuffer(RenderTexture source) {
+		RenderTexture NewBuffer(string name , RenderTexture source) {
 			RenderTexture rt = RenderTexture.GetTemporary(source.width, source.height);
+			rt.name = name;
 			rt.filterMode = FilterMode.Point;
 			return rt;
 		}
@@ -174,20 +175,17 @@ namespace FillMember {
 			} else if (state == 1) {
 
 				// update buffers
-				ReleaseBuffer (workBuffer);
-				workBuffer = NewBuffer (source);
-				Graphics.Blit (source, workBuffer);
-
-				ReleaseBuffer (workBuffer2);
-				workBuffer2 = NewBuffer (source);
-				Graphics.Blit (source, workBuffer2);
-
-				// update buffers
-				ReleaseBuffer (rdBuffer);
-				ReleaseBuffer (rdBuffer2);
-				rdBuffer = NewBuffer (source);
-				rdBuffer2 = NewBuffer (source);
+				ReleaseBuffer ( workBuffer );
+				ReleaseBuffer ( workBuffer2 );
+				ReleaseBuffer ( rdBuffer );
+				ReleaseBuffer ( rdBuffer2 );
+				workBuffer  = NewBuffer ( "workA" , source );
+				workBuffer2 = NewBuffer ( "workB" , source );
+				rdBuffer    = NewBuffer ( "rdA" , source );
+				rdBuffer2   = NewBuffer ( "rdB" , source );
 				
+				Graphics.Blit (source, workBuffer);
+				Graphics.Blit (source, workBuffer2);
 				Graphics.Blit (source, rdBuffer);
 				Graphics.Blit (source, rdBuffer);
 
