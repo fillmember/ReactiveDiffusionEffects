@@ -66,6 +66,12 @@
 
 	float4 frag_rd(v2f source) : SV_Target {
 
+		// Amount of Motion
+		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
+		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw * decayRate;
+		float motion = length( mv );
+
+		//RD
 		float2 stepX = float2( texelSize , 0 );
 		float2 stepY = float2( 0 , texelSize );
 
@@ -77,21 +83,13 @@
 
 		float2 laplace = 0.25 * ( v1 + v2 + v3 + v4 ) - v0;
 
-		float reaction = v0.r * v0.g * v0.g;
+		float reaction = v0.r * v0.g * v0.g + lerp( 0 , 0.003 , motion );
 		float du = 1.0 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
 		float dv = 0.5 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
 
-		float2 dst = v0 + float2(du, dv) * 0.9;
+		float2 result = v0 + float2(du, dv) * 0.9;
 
-		// Extra Feed
-
-		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		// float2 _motion = mv * _CameraMotionVectorsTexture_TexelSize.zw;
-		// float motion_len = length( _motion );
-		float motion_len = length( mv );
-		dst.g = lerp( dst.g , 1.0 , motion_len);
-
-		return float4( dst , 0.0 , 1.0 );
+		return float4( result , 0 , 1 );
 
 	}
 
