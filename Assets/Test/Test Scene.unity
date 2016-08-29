@@ -868,7 +868,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309260158}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afd0908f5be2345bb81635662a4adb54, type: 3}
   m_Name: 
@@ -891,10 +891,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iterations: 2
   feedRate: 0.02
-  killRate: 0.06
-  texelSize: 0.00079
+  killRate: 0.0652
+  texelSize: 0.00125
   decayRate: 0.995
+  dryWet: 0.8
   displacePositionOnly: 0
+  rdBuffer: {fileID: 0}
+  workBuffer: {fileID: 0}
   state: 0
 --- !u!1 &569248204
 GameObject:
