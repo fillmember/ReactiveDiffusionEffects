@@ -39,8 +39,6 @@ namespace FillMember {
 		public RenderTexture rdBuffer = null;
 		[SerializeField]
 		public RenderTexture workBuffer = null;
-//		[SerializeField]
-//		public RenderTexture motionBuffer = null;
 
 		#endregion
 
@@ -132,16 +130,13 @@ namespace FillMember {
 			// Buffers
 			ReleaseBuffer (rdBuffer);
 			ReleaseBuffer (workBuffer);
-//			ReleaseBuffer (motionBuffer);
 			rdBuffer = null;
 			workBuffer = null;
-//			motionBuffer = null;
 
 		}
 
 		void OnRenderImage( RenderTexture source , RenderTexture destination ) {
 
-//			material.SetTexture ("_motionBuffer", motionBuffer);
 			material.SetTexture ("_workBuffer", workBuffer);
 			material.SetTexture ("_rdTex", rdBuffer);
 
@@ -170,27 +165,16 @@ namespace FillMember {
 				
 				Graphics.Blit (source, rdBuffer);
 
-//				// motionBuffer
-//				ReleaseBuffer( motionBuffer );
-//				motionBuffer = NewBuffer( source );
-
-//				Graphics.Blit (null, motionBuffer, material, 0);
-
 				state = 2;
 
 			} else if (state == 2) {
 
 				Simulate();
 
-//				// calculate motionBuffer
-//				Graphics.Blit (null, motionBuffer, material, 2);
-
 				// write to destination
 				if ( displacePositionOnly ) {
-					// Graphics.Blit (source, workBuffer, material, 3);
 					Graphics.Blit (source, workBuffer, material, 2);
 				} else {
-					// Graphics.Blit (source, workBuffer, material, 4);
 					Graphics.Blit (source, workBuffer, material, 3);
 				}
 

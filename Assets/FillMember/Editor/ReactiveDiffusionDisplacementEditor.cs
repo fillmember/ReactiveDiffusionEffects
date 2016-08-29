@@ -18,7 +18,6 @@ namespace FillMember
 
 			SerializedProperty rdBuffer;
 			SerializedProperty workBuffer;
-			// SerializedProperty motionBuffer;
 
 			public int selGridInt = 0;
 			public string[] selStrings = new string[] {"radio1", "radio2", "radio3"};
@@ -35,7 +34,6 @@ namespace FillMember
 
 				rdBuffer = serializedObject.FindProperty("rdBuffer");
 				workBuffer = serializedObject.FindProperty("workBuffer");
-				// motionBuffer = serializedObject.FindProperty("motionBuffer");
 
 			}
 
@@ -53,7 +51,6 @@ namespace FillMember
 
 				EditorGUILayout.PropertyField( rdBuffer );
 				EditorGUILayout.PropertyField( workBuffer );
-				// EditorGUILayout.PropertyField( motionBuffer );				
 
 				serializedObject.ApplyModifiedProperties();
 
