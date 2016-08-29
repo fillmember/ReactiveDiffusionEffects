@@ -786,7 +786,7 @@ GameObject:
   - 124: {fileID: 309260160}
   - 81: {fileID: 309260159}
   - 114: {fileID: 309260164}
-  - 114: {fileID: 309260166}
+  - 114: {fileID: 309260165}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -868,7 +868,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309260158}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afd0908f5be2345bb81635662a4adb54, type: 3}
   m_Name: 
@@ -878,7 +878,7 @@ MonoBehaviour:
   frequency: 1.6545646
   aim: 1
   aimTarget: {fileID: 1301380356}
---- !u!114 &309260166
+--- !u!114 &309260165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -890,15 +890,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iterations: 2
-  feedRate: 0.02
-  killRate: 0.0652
-  texelSize: 0.00125
-  decayRate: 0.995
-  dryWet: 0.8
+  feedRate: 0.035
+  killRate: 0.064
+  texelSize: 0.0015
+  displaceStrength: 1
+  dryWet: 0.9
   displacePositionOnly: 0
-  rdBuffer: {fileID: 0}
-  workBuffer: {fileID: 0}
-  state: 0
 --- !u!1 &569248204
 GameObject:
   m_ObjectHideFlags: 0

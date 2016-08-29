@@ -107,9 +107,9 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		float2 newUV = source.uv + _rd.ba * _rd.g * intensity;
 
-		float3 _main_disp = tex2D( _MainTex , newUV ).rgb;
+		float3 result = tex2D( _MainTex , newUV ).rgb;
 
-		return _main_disp;
+		return result;
 
 	}
 

@@ -14,11 +14,11 @@ namespace FillMember {
 
 		[SerializeField , Range(0.0050f,0.1110f)]
 		[Tooltip("Feed rate of reactive diffusion simulation. ")]
-		public float feedRate = 0.03500f;
+		public float feedRate = 0.035f;
 
 		[SerializeField , Range(0.0300f,0.0740f)]
 		[Tooltip("Kill rate of reactive diffusion simulation. ")]
-		public float killRate = 0.06400f;
+		public float killRate = 0.060f;
 
 		[SerializeField , Range(0.0001f,0.005f)]
 		[Tooltip("Simulation texel size. ")]
@@ -26,11 +26,11 @@ namespace FillMember {
 
 		[SerializeField , Range(-10,10)]
 		[Tooltip("Displacement Strength")]
-		public float displaceStrength = 0.98f;
+		public float displaceStrength = 0.1f;
 
 		[SerializeField , Range(0,1)]
 		[Tooltip("Dry / Wet")]
-		public float dryWet = 0.8f;
+		public float dryWet = 0.9f;
 
 		[SerializeField]
 		public bool displacePositionOnly = false;
