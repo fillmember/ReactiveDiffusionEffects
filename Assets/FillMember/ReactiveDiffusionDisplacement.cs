@@ -35,15 +35,18 @@ namespace FillMember {
 		[SerializeField]
 		public bool displacePositionOnly = false;
 
-		[SerializeField]
-		public RenderTexture rdBuffer = null;
-		[SerializeField]
-		public RenderTexture workBuffer = null;
+		[SerializeField] public RenderTexture rdBuffer = null;
+		[SerializeField] public RenderTexture rdBuffer2 = null;
+		[SerializeField] public RenderTexture workBuffer = null;
+		[SerializeField] public RenderTexture workBuffer2 = null;
 
 		#endregion
 
 		[SerializeField]
 		private int state = 0;
+
+		private bool pingpong_rdBuffer = false;
+		private bool pingpong_workBuffer = false;
 
 		#region Private properties
 
@@ -98,7 +101,12 @@ namespace FillMember {
 			if (Time.frameCount != lastFrame) {
 
 				for (int i = 0; i < iterations; i++) {
-					Graphics.Blit ( null , rdBuffer , material, 1 );
+					if (pingpong_rdBuffer) {
+						Graphics.Blit ( rdBuffer , rdBuffer2 , material, 1 );
+					} else {
+						Graphics.Blit ( rdBuffer2 , rdBuffer , material, 1 );
+					}
+					pingpong_rdBuffer = ! pingpong_rdBuffer;
 				}
 
 				lastFrame = Time.frameCount;
@@ -129,16 +137,28 @@ namespace FillMember {
 
 			// Buffers
 			ReleaseBuffer (rdBuffer);
+			ReleaseBuffer (rdBuffer2);
 			ReleaseBuffer (workBuffer);
+			ReleaseBuffer (workBuffer2);
 			rdBuffer = null;
+			rdBuffer2 = null;
 			workBuffer = null;
+			workBuffer2 = null;
 
 		}
 
 		void OnRenderImage( RenderTexture source , RenderTexture destination ) {
 
-			material.SetTexture ("_workBuffer", workBuffer);
-			material.SetTexture ("_rdTex", rdBuffer);
+			if (pingpong_workBuffer) {
+				material.SetTexture ("_workBuffer", workBuffer2);
+			} else {
+				material.SetTexture ("_workBuffer", workBuffer);
+			}
+			if (pingpong_rdBuffer) {
+				material.SetTexture ("_rdTex", rdBuffer2);
+			} else {
+				material.SetTexture ("_rdTex", rdBuffer);
+			}
 
 			material.SetFloat ("displaceStrength", displaceStrength);
 			material.SetFloat ("dryWet", dryWet);
@@ -148,21 +168,27 @@ namespace FillMember {
 
 			if (state == 0) {
 
+				// Render : copy source to destination
+				Graphics.Blit (source, destination);
+
+			} else if (state == 1) {
+
 				// update buffers
 				ReleaseBuffer (workBuffer);
 				workBuffer = NewBuffer (source);
 				Graphics.Blit (source, workBuffer);
 
-				// Render : copy source to destination
-				Graphics.Blit (workBuffer, destination);
-
-
-			} else if (state == 1) {
+				ReleaseBuffer (workBuffer2);
+				workBuffer2 = NewBuffer (source);
+				Graphics.Blit (source, workBuffer2);
 
 				// update buffers
 				ReleaseBuffer (rdBuffer);
+				ReleaseBuffer (rdBuffer2);
 				rdBuffer = NewBuffer (source);
+				rdBuffer2 = NewBuffer (source);
 				
+				Graphics.Blit (source, rdBuffer);
 				Graphics.Blit (source, rdBuffer);
 
 				state = 2;
@@ -171,14 +197,18 @@ namespace FillMember {
 
 				Simulate();
 
+				int pass = displacePositionOnly ? 2 : 3;
+
 				// write to destination
-				if ( displacePositionOnly ) {
-					Graphics.Blit (source, workBuffer, material, 2);
+				if ( pingpong_workBuffer ) {
+					Graphics.Blit (source, workBuffer, material, pass);
+					Graphics.Blit (workBuffer, destination);
 				} else {
-					Graphics.Blit (source, workBuffer, material, 3);
+					Graphics.Blit (source, workBuffer2, material, pass);
+					Graphics.Blit (workBuffer2, destination);
 				}
 
-				Graphics.Blit (workBuffer, destination);
+				pingpong_workBuffer = ! pingpong_workBuffer;
 				
 			} else if (state == 3) {
 

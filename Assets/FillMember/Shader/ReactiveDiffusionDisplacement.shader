@@ -68,15 +68,15 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw * displaceStrength;
 		float motion = length( mv );
 
-		//RD
+		// Simulation
 		float2 stepX = float2( texelSize , 0 );
 		float2 stepY = float2( 0 , texelSize );
 
-		float2 v0 = tex2D( _rdTex , source.uv ).rg;
-		float2 v1 = tex2D( _rdTex , source.uv - stepX ).rg;
-		float2 v2 = tex2D( _rdTex , source.uv - stepY ).rg;
-		float2 v3 = tex2D( _rdTex , source.uv + stepX ).rg;
-		float2 v4 = tex2D( _rdTex , source.uv + stepY ).rg;
+		float2 v0 = tex2D( _MainTex , source.uv ).rg;
+		float2 v1 = tex2D( _MainTex , source.uv - stepX ).rg;
+		float2 v2 = tex2D( _MainTex , source.uv - stepY ).rg;
+		float2 v3 = tex2D( _MainTex , source.uv + stepX ).rg;
+		float2 v4 = tex2D( _MainTex , source.uv + stepY ).rg;
 
 		float2 laplace = 0.25 * ( v1 + v2 + v3 + v4 ) - v0;
 
@@ -86,7 +86,12 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		float2 result = v0 + float2(du, dv) * 0.9;
 
-		return float4( result , mv );
+		// mix motion
+
+		float2 amv = tex2D( _MainTex , source.uv ).ba;
+		amv = amv * 0.99 + mv * 0.01;
+
+		return float4( result , amv );
 
 	}
 
@@ -96,7 +101,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 	}
 
-	float3 displace( v2f source , float intensity ) {
+	float3 displace( in v2f source , in float intensity ) {
 		
 		float4 _rd = tex2D( _rdTex , source.uv );
 
@@ -126,7 +131,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 		float3 _main = tex2D( _MainTex , source.uv ).rgb;
 		float3 _work = tex2D( _workBuffer , source.uv ).rgb;
 
-		float v = lerp( dryWet , 1.0 , _rd.g );
+		float v = lerp( dryWet , 1 , _rd.g );
 		
 		float3 blend = lerp( _main , _work , v );
 
