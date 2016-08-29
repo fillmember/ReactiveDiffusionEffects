@@ -53,7 +53,7 @@ namespace FillMember
 
 				EditorGUILayout.PropertyField( rdBuffer );
 				EditorGUILayout.PropertyField( workBuffer );
-				EditorGUILayout.PropertyField( motionffer );				
+				EditorGUILayout.PropertyField( motionBuffer );				
 
 				serializedObject.ApplyModifiedProperties();
 
