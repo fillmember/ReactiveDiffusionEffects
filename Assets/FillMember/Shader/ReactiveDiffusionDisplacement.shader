@@ -1,4 +1,4 @@
-﻿Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
+Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 {
 	Properties
 	{
@@ -23,9 +23,6 @@
 
 	sampler2D _workBuffer;
 	float4 _workBuffer_TexelSize;
-
-	// sampler2D _motionBuffer;
-	// float4 _motionBuffer_TexelSize;
 
 	// Motion Vector
 	sampler2D_half _CameraMotionVectorsTexture;
