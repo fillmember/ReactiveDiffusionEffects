@@ -35,7 +35,7 @@
 	float texelSize;
 	float feedRate;
 	float killRate;
-	float decayRate;
+	float displaceStrength;
 	float dryWet;
 
 	// Vertex Shader
@@ -68,7 +68,7 @@
 
 		// Amount of Motion
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw * decayRate;
+		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw * displaceStrength;
 		float motion = length( mv );
 
 		//RD
@@ -129,7 +129,7 @@
 
 	float4 frag_disp_distort(v2f source) : SV_Target {
 
-		float3 _main_disp = displace( source , dryWet );
+		float3 _main_disp = displace( source , displaceStrength );
 
 		return float4( _main_disp , 1.0 );
 

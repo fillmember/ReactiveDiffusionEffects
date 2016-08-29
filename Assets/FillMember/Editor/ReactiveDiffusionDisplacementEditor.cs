@@ -12,7 +12,7 @@ namespace FillMember
 			SerializedProperty feedRate;
 			SerializedProperty killRate;
 			SerializedProperty texelSize;
-			SerializedProperty decayRate;
+			SerializedProperty displaceStrength;
 			SerializedProperty dryWet;
 			SerializedProperty displacePositionOnly;
 
@@ -29,7 +29,7 @@ namespace FillMember
 				feedRate = serializedObject.FindProperty("feedRate");
 				killRate = serializedObject.FindProperty("killRate");
 				texelSize = serializedObject.FindProperty("texelSize");
-				decayRate = serializedObject.FindProperty("decayRate");
+				displaceStrength = serializedObject.FindProperty("displaceStrength");
 				dryWet = serializedObject.FindProperty("dryWet");
 				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
 
@@ -47,7 +47,7 @@ namespace FillMember
 				EditorGUILayout.PropertyField( feedRate );
 				EditorGUILayout.PropertyField( killRate );
 				EditorGUILayout.PropertyField( texelSize );
-				EditorGUILayout.PropertyField( decayRate );
+				EditorGUILayout.PropertyField( displaceStrength );
 				EditorGUILayout.PropertyField( dryWet );
 				EditorGUILayout.PropertyField( displacePositionOnly );
 

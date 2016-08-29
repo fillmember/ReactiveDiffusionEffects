@@ -24,9 +24,9 @@ namespace FillMember {
 		[Tooltip("Simulation texel size. ")]
 		public float texelSize = 0.0015f;
 
-		[SerializeField , Range(0,1)]
-		[Tooltip("Displacement decay rate")]
-		public float decayRate = 0.98f;
+		[SerializeField , Range(-10,10)]
+		[Tooltip("Displacement Strength")]
+		public float displaceStrength = 0.98f;
 
 		[SerializeField , Range(0,1)]
 		[Tooltip("Dry / Wet")]
@@ -145,7 +145,7 @@ namespace FillMember {
 			material.SetTexture ("_workBuffer", workBuffer);
 			material.SetTexture ("_rdTex", rdBuffer);
 
-			material.SetFloat ("decayRate", decayRate);
+			material.SetFloat ("displaceStrength", displaceStrength);
 			material.SetFloat ("dryWet", dryWet);
 			material.SetFloat ("killRate", killRate);
 			material.SetFloat ("feedRate", feedRate);
