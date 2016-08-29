@@ -16,6 +16,10 @@ namespace FillMember
 			SerializedProperty dryWet;
 			SerializedProperty displacePositionOnly;
 
+			SerializedProperty rdBuffer;
+			SerializedProperty workBuffer;
+			SerializedProperty motionBuffer;
+
 			public int selGridInt = 0;
 			public string[] selStrings = new string[] {"radio1", "radio2", "radio3"};
 
@@ -28,6 +32,10 @@ namespace FillMember
 				decayRate = serializedObject.FindProperty("decayRate");
 				dryWet = serializedObject.FindProperty("dryWet");
 				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
+
+				rdBuffer = serializedObject.FindProperty("rdBuffer");
+				workBuffer = serializedObject.FindProperty("workBuffer");
+				motionBuffer = serializedObject.FindProperty("motionBuffer");
 
 			}
 
@@ -42,6 +50,10 @@ namespace FillMember
 				EditorGUILayout.PropertyField( decayRate );
 				EditorGUILayout.PropertyField( dryWet );
 				EditorGUILayout.PropertyField( displacePositionOnly );
+
+				EditorGUILayout.PropertyField( rdBuffer );
+				EditorGUILayout.PropertyField( workBuffer );
+				EditorGUILayout.PropertyField( motionffer );				
 
 				serializedObject.ApplyModifiedProperties();
 

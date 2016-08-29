@@ -35,6 +35,12 @@ namespace FillMember {
 		[SerializeField]
 		public bool displacePositionOnly = false;
 
+		[SerializeField]
+		public RenderTexture rdBuffer = null;
+		[SerializeField]
+		public RenderTexture workBuffer = null;
+		[SerializeField]
+		public RenderTexture motionBuffer = null;
 
 		#endregion
 
@@ -43,13 +49,7 @@ namespace FillMember {
 
 		#region Private properties
 
-		Shader shader;
-
 		Material material;
-
-		RenderTexture rdBuffer = null;
-		RenderTexture workBuffer = null;
-		RenderTexture motionBuffer = null;
 
 		int lastFrame;
 
