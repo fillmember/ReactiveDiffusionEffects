@@ -16,11 +16,6 @@ namespace FillMember
 			SerializedProperty dryWet;
 			SerializedProperty displacePositionOnly;
 
-			SerializedProperty rdBuffer;
-			SerializedProperty workBuffer;
-			SerializedProperty rdBuffer2;
-			SerializedProperty workBuffer2;
-
 			public int selGridInt = 0;
 			public string[] selStrings = new string[] {"radio1", "radio2", "radio3"};
 
@@ -33,11 +28,6 @@ namespace FillMember
 				displaceStrength = serializedObject.FindProperty("displaceStrength");
 				dryWet = serializedObject.FindProperty("dryWet");
 				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
-
-				rdBuffer = serializedObject.FindProperty("rdBuffer");
-				workBuffer = serializedObject.FindProperty("workBuffer");
-				rdBuffer2 = serializedObject.FindProperty("rdBuffer2");
-				workBuffer2 = serializedObject.FindProperty("workBuffer2");
 
 			}
 
@@ -52,11 +42,6 @@ namespace FillMember
 				EditorGUILayout.PropertyField( displaceStrength );
 				EditorGUILayout.PropertyField( dryWet );
 				EditorGUILayout.PropertyField( displacePositionOnly );
-
-				EditorGUILayout.PropertyField( rdBuffer );
-				EditorGUILayout.PropertyField( rdBuffer2 );
-				EditorGUILayout.PropertyField( workBuffer );
-				EditorGUILayout.PropertyField( workBuffer2 );
 
 				serializedObject.ApplyModifiedProperties();
 

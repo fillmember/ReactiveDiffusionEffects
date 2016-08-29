@@ -35,18 +35,18 @@ namespace FillMember {
 		[SerializeField]
 		public bool displacePositionOnly = false;
 
-		[SerializeField] public RenderTexture rdBuffer = null;
-		[SerializeField] public RenderTexture rdBuffer2 = null;
-		[SerializeField] public RenderTexture workBuffer = null;
-		[SerializeField] public RenderTexture workBuffer2 = null;
 
 		#endregion
 
-		[SerializeField]
 		private int state = 0;
 
 		private bool pingpong_rdBuffer = false;
 		private bool pingpong_workBuffer = false;
+
+		private RenderTexture rdBuffer = null;
+		private RenderTexture rdBuffer2 = null;
+		private RenderTexture workBuffer = null;
+		private RenderTexture workBuffer2 = null;
 
 		#region Private properties
 
