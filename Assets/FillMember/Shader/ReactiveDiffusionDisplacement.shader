@@ -6,7 +6,7 @@
 		_MainTex("Main Texture", 2D) = "" {}
 		_rdTex("Reactive Diffusion Simulation Buffer", 2D) = "red" {}
 		_workBuffer("Displaced Image Buffer", 2D) = "black" {}
-		_motionBuffer("Motion Vector Buffer", 2D) = "black" {}
+		// _motionBuffer("Motion Vector Buffer", 2D) = "black" {}
 
 	}
 
@@ -24,8 +24,8 @@
 	sampler2D _workBuffer;
 	float4 _workBuffer_TexelSize;
 
-	sampler2D _motionBuffer;
-	float4 _motionBuffer_TexelSize;
+	// sampler2D _motionBuffer;
+	// float4 _motionBuffer_TexelSize;
 
 	// Motion Vector
 	sampler2D_half _CameraMotionVectorsTexture;
@@ -86,8 +86,10 @@
 		// Extra Feed
 
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		float mv_len = length( mv );
-		dst.g = lerp( dst.g , 1.0 , mv_len);
+		// float2 _motion = mv * _CameraMotionVectorsTexture_TexelSize.zw;
+		// float motion_len = length( _motion );
+		float motion_len = length( mv );
+		dst.g = lerp( dst.g , 1.0 , motion_len);
 
 		return float4( dst , 0.0 , 1.0 );
 
@@ -99,21 +101,25 @@
 
 	}
 
-	float4 frag_update(v2f source) : SV_Target {
+	// float4 frag_update(v2f source) : SV_Target {
 		
-		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).xy;
-		float2 amv = tex2D( _motionBuffer , source.uv ).xy;
+	// 	float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
+	// 	// float2 amv = tex2D( _motionBuffer , source.uv ).rg;
 
-		float2 blend = amv * decayRate + mv * decayRate;
+	// 	// mv = mv * _CameraMotionVectorsTexture_TexelSize.zw;
 
-		return float4( blend , 0.0 , 1.0 );
-	}
+	// 	float2 blend = mv + amv * decayRate;
+	// 	blend = min( float2(1,1) , blend );
+
+	// 	return float4( blend.rg , 0.0 , 1.0 );
+	// }
 
 	float3 displace( v2f source , float intensity ) {
 		
 		float2 _rd = tex2D( _rdTex , source.uv ).rg;
-		float2 _motion = tex2D( _motionBuffer , source.uv ).rg;
+		// float2 _motion = tex2D( _motionBuffer , source.uv ).rg;
 		float2 _mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
+		float2 _motion = _mv * _CameraMotionVectorsTexture_TexelSize.zw;
 
 		float2 newUV = source.uv + (_mv + _motion.rg) * _rd.g * intensity;
 
@@ -173,14 +179,14 @@
 			ENDCG
 		}
 
-		Pass {
-			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag_update
-			#pragma target 3.0
-			ENDCG
-		}
+		// Pass {
+		// 	ZTest Always Cull Off ZWrite Off Fog { Mode Off }
+		// 	CGPROGRAM
+		// 	#pragma vertex vert
+		// 	#pragma fragment frag_update
+		// 	#pragma target 3.0
+		// 	ENDCG
+		// }
 
 		Pass {
 			ZTest Always Cull Off ZWrite Off Fog { Mode Off }
