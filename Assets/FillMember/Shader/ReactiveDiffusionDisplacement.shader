@@ -89,7 +89,7 @@
 
 		float2 result = v0 + float2(du, dv) * 0.9;
 
-		return float4( result , 0 , 1 );
+		return float4( result , mv );
 
 	}
 
@@ -114,12 +114,9 @@
 
 	float3 displace( v2f source , float intensity ) {
 		
-		float2 _rd = tex2D( _rdTex , source.uv ).rg;
-		// float2 _motion = tex2D( _motionBuffer , source.uv ).rg;
-		float2 _mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		float2 _motion = _mv * _CameraMotionVectorsTexture_TexelSize.zw;
+		float4 _rd = tex2D( _rdTex , source.uv );
 
-		float2 newUV = source.uv + (_mv + _motion.rg) * _rd.g * intensity;
+		float2 newUV = source.uv + _rd.ba * _rd.g * intensity;
 
 		float3 _main_disp = tex2D( _MainTex , newUV ).rgb;
 
