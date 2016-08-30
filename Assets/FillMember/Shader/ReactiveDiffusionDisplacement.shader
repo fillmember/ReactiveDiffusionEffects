@@ -129,9 +129,9 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		// color blend
 
-		float3 _main = tex2D( _MainTex , source.uv ).rgb;
+		float3 _main = tex2D( _MainTex , source.uv2 ).rgb;
 		float2 _rd = tex2D( _rdTex , source.uv2 ).rg;
-		float3 _work = tex2D( _workBuffer , source.uv2 ).rgb;
+		float3 _work = tex2D( _workBuffer , source.uv ).rgb;
 
 		float v = lerp( dryWet , 1 , _rd.g );
 		
