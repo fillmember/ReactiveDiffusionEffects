@@ -10,6 +10,7 @@ namespace FillMember {
 			SerializedProperty iterations;
 			SerializedProperty feedRate;
 			SerializedProperty killRate;
+			SerializedProperty mvAddAmount;
 			SerializedProperty texelSize;
 			SerializedProperty displaceStrength;
 			SerializedProperty mvDecayRate;
@@ -24,6 +25,7 @@ namespace FillMember {
 				iterations = serializedObject.FindProperty("iterations");
 				feedRate = serializedObject.FindProperty("feedRate");
 				killRate = serializedObject.FindProperty("killRate");
+				mvAddAmount = serializedObject.FindProperty("mvAddAmount");
 				texelSize = serializedObject.FindProperty("texelSize");
 				displaceStrength = serializedObject.FindProperty("displaceStrength");
 				mvDecayRate = serializedObject.FindProperty("mvDecayRate");
@@ -36,13 +38,14 @@ namespace FillMember {
 
 				serializedObject.Update();
 
-				EditorGUILayout.PropertyField( iterations       , new GUIContent("Simulation iteration")  );
-				EditorGUILayout.PropertyField( feedRate         , new GUIContent("Simulation feed rate")  );
-				EditorGUILayout.PropertyField( killRate         , new GUIContent("Simulation kill rate")  );
-				EditorGUILayout.PropertyField( texelSize        , new GUIContent("Simulation step size")  );
+				EditorGUILayout.PropertyField( iterations  , new GUIContent("Simulation : iteration") );
+				EditorGUILayout.PropertyField( feedRate    , new GUIContent("Simulation : feed rate") );
+				EditorGUILayout.PropertyField( killRate    , new GUIContent("Simulation : kill rate") );
+				EditorGUILayout.PropertyField( mvAddAmount , new GUIContent("Simulation : feed by motion") );
+				EditorGUILayout.PropertyField( texelSize   , new GUIContent("Simulation : step size") );
 				EditorGUILayout.PropertyField( displaceStrength , new GUIContent("Displacement Strength") );
-				EditorGUILayout.PropertyField( mvDecayRate      , new GUIContent("Motion vector decay")   );
-				EditorGUILayout.PropertyField( dryWet           , new GUIContent("Dry/Wet")               );
+				EditorGUILayout.PropertyField( mvDecayRate      , new GUIContent("Motion vector decay") );
+				EditorGUILayout.PropertyField( dryWet           , new GUIContent("Effect dry/wet") );
 				EditorGUILayout.PropertyField( displacePositionOnly , new GUIContent("Only displace position") );
 
 				serializedObject.ApplyModifiedProperties();

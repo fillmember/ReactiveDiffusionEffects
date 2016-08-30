@@ -20,6 +20,10 @@ namespace FillMember {
 		[Tooltip("Kill rate of reactive diffusion simulation. ")]
 		public float killRate = 0.060f;
 
+		[SerializeField , Range(0,1)]
+		[Tooltip("Simulation add rate by motion vector. ")]
+		public float mvAddAmount = 0.005f;
+
 		[SerializeField , Range(0.0001f,0.005f)]
 		[Tooltip("Simulation texel size. ")]
 		public float texelSize = 0.0015f;
@@ -170,6 +174,7 @@ namespace FillMember {
 			material.SetFloat ("texelSize", texelSize);
 			material.SetFloat ("displaceStrength", displaceStrength);
 			material.SetFloat ("mvDecayRate", mvDecayRate);
+			material.SetFloat ("mvAddAmount", mvAddAmount);
 			material.SetFloat ("dryWet", dryWet);
 
 			if (state == 0) {

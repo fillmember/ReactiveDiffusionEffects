@@ -32,6 +32,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 	float feedRate;
 	float killRate;
 	float displaceStrength;
+	float mvAddAmount;
 	float mvDecayRate;
 	float dryWet;
 
@@ -82,7 +83,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		float2 laplace = 0.25 * ( v1 + v2 + v3 + v4 ) - v0;
 
-		float reaction = v0.r * v0.g * v0.g + lerp( 0 , 0.003 , motion );
+		float reaction = v0.r * v0.g * v0.g + lerp( 0 , mvAddAmount , motion );
 		float du = 1.0 * laplace.r - reaction + feedRate * ( 1.0 - v0.r );
 		float dv = 0.5 * laplace.g + reaction - ( feedRate + killRate ) * v0.g;
 
