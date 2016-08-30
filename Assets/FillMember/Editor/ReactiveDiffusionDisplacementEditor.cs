@@ -12,6 +12,7 @@ namespace FillMember {
 			SerializedProperty killRate;
 			SerializedProperty texelSize;
 			SerializedProperty displaceStrength;
+			SerializedProperty mvDecayRate;
 			SerializedProperty dryWet;
 			SerializedProperty displacePositionOnly;
 
@@ -25,6 +26,7 @@ namespace FillMember {
 				killRate = serializedObject.FindProperty("killRate");
 				texelSize = serializedObject.FindProperty("texelSize");
 				displaceStrength = serializedObject.FindProperty("displaceStrength");
+				mvDecayRate = serializedObject.FindProperty("mvDecayRate");
 				dryWet = serializedObject.FindProperty("dryWet");
 				displacePositionOnly = serializedObject.FindProperty("displacePositionOnly");
 
@@ -34,13 +36,14 @@ namespace FillMember {
 
 				serializedObject.Update();
 
-				EditorGUILayout.PropertyField( iterations );
-				EditorGUILayout.PropertyField( feedRate );
-				EditorGUILayout.PropertyField( killRate );
-				EditorGUILayout.PropertyField( texelSize );
-				EditorGUILayout.PropertyField( displaceStrength );
-				EditorGUILayout.PropertyField( dryWet );
-				EditorGUILayout.PropertyField( displacePositionOnly );
+				EditorGUILayout.PropertyField( iterations       , new GUIContent("Simulation iteration")  );
+				EditorGUILayout.PropertyField( feedRate         , new GUIContent("Simulation feed rate")  );
+				EditorGUILayout.PropertyField( killRate         , new GUIContent("Simulation kill rate")  );
+				EditorGUILayout.PropertyField( texelSize        , new GUIContent("Simulation step size")  );
+				EditorGUILayout.PropertyField( displaceStrength , new GUIContent("Displacement Strength") );
+				EditorGUILayout.PropertyField( mvDecayRate      , new GUIContent("Motion vector decay")   );
+				EditorGUILayout.PropertyField( dryWet           , new GUIContent("Dry/Wet")               );
+				EditorGUILayout.PropertyField( displacePositionOnly , new GUIContent("Only displace position") );
 
 				serializedObject.ApplyModifiedProperties();
 

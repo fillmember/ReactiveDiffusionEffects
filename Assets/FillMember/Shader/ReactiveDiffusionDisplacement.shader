@@ -6,7 +6,6 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 		_MainTex("Main Texture", 2D) = "" {}
 		_rdTex("Reactive Diffusion Simulation Buffer", 2D) = "red" {}
 		_workBuffer("Displaced Image Buffer", 2D) = "black" {}
-		// _motionBuffer("Motion Vector Buffer", 2D) = "black" {}
 
 	}
 
@@ -33,6 +32,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 	float feedRate;
 	float killRate;
 	float displaceStrength;
+	float mvDecayRate;
 	float dryWet;
 
 	// Vertex Shader
@@ -91,8 +91,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 		// mix motion
 
 		float2 amv = tex2D( _MainTex , source.uv ).ba;
-		// amv = amv * 0.995 + mv * 0.005;
-		amv += (mv - amv) * 0.001;
+		amv += (mv - amv) * mvDecayRate;
 
 		return float4( result , amv );
 

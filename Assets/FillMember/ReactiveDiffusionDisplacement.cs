@@ -25,11 +25,15 @@ namespace FillMember {
 		public float texelSize = 0.0015f;
 
 		[SerializeField , Range(-10,10)]
-		[Tooltip("Displacement Strength")]
+		[Tooltip("Displacement strength. ")]
 		public float displaceStrength = 0.1f;
 
 		[SerializeField , Range(0,1)]
-		[Tooltip("Dry / Wet")]
+		[Tooltip("Motion vector decay rate. ")]
+		public float mvDecayRate = 0.001f;
+
+		[SerializeField , Range(0,1)]
+		[Tooltip("Intensity of the effect. ")]
 		public float dryWet = 0.9f;
 
 		[SerializeField]
@@ -161,11 +165,12 @@ namespace FillMember {
 				material.SetTexture ("_rdTex", rdBuffer);
 			}
 
-			material.SetFloat ("displaceStrength", displaceStrength);
-			material.SetFloat ("dryWet", dryWet);
 			material.SetFloat ("killRate", killRate);
 			material.SetFloat ("feedRate", feedRate);
 			material.SetFloat ("texelSize", texelSize);
+			material.SetFloat ("displaceStrength", displaceStrength);
+			material.SetFloat ("mvDecayRate", mvDecayRate);
+			material.SetFloat ("dryWet", dryWet);
 
 			if (state == 0) {
 
