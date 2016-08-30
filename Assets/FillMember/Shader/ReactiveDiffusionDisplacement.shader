@@ -40,6 +40,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 	struct v2f {
 		float4 pos : SV_POSITION;
 		float2 uv : TEXCOORD0;
+		float2 uv2 : TEXCOORD1;
 	};
 
 	v2f vert(appdata_full v) {
@@ -48,6 +49,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 		o.uv = v.texcoord.xy;
+		o.uv2 = v.texcoord.xy;
 		
 	#if UNITY_UV_STARTS_AT_TOP
 		if (_MainTex_TexelSize.y < 0.0) {
@@ -103,9 +105,9 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 	float3 displace( in v2f source , in float intensity ) {
 		
-		float4 _rd = tex2D( _rdTex , source.uv );
+		float4 _rd = tex2D( _rdTex , source.uv2 );
 
-		float2 newUV = source.uv + _rd.ba * _rd.g * intensity;
+		float2 newUV = source.uv2 + _rd.ba * _rd.g * intensity;
 
 		float3 result = tex2D( _MainTex , newUV ).rgb;
 
@@ -127,9 +129,9 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		// color blend
 
-		float2 _rd = tex2D( _rdTex , source.uv ).rg;
 		float3 _main = tex2D( _MainTex , source.uv ).rgb;
-		float3 _work = tex2D( _workBuffer , source.uv ).rgb;
+		float2 _rd = tex2D( _rdTex , source.uv2 ).rg;
+		float3 _work = tex2D( _workBuffer , source.uv2 ).rgb;
 
 		float v = lerp( dryWet , 1 , _rd.g );
 		
