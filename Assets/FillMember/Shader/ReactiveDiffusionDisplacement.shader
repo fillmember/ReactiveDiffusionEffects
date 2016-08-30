@@ -91,7 +91,8 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 		// mix motion
 
 		float2 amv = tex2D( _MainTex , source.uv ).ba;
-		amv = amv * 0.99 + mv * 0.01;
+		// amv = amv * 0.995 + mv * 0.005;
+		amv += (mv - amv) * 0.001;
 
 		return float4( result , amv );
 
