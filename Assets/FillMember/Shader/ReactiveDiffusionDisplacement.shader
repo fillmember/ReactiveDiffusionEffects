@@ -67,7 +67,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 		// Amount of Motion
 		float2 mv = tex2D( _CameraMotionVectorsTexture , source.uv ).rg;
-		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw * displaceStrength;
+		mv = mv * _CameraMotionVectorsTexture_TexelSize.zw;
 		float motion = length( mv );
 
 		// Simulation
@@ -125,7 +125,7 @@ Shader "Hidden/FillMember/ReactiveDiffusionDisplacement"
 
 	float4 frag_disp_full(v2f source) : SV_Target {
 
-		float3 _main_disp = displace( source , 1 );
+		float3 _main_disp = displace( source , displaceStrength );
 
 		// color blend
 
