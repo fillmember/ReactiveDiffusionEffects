@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace FillMember
-{
+namespace FillMember {
 
 		[CanEditMultipleObjects]
 		[CustomEditor(typeof(ReactiveDiffusionDisplacement))]
