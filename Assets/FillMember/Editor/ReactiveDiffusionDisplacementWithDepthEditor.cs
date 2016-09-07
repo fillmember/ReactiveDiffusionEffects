@@ -5,7 +5,7 @@ namespace FillMember {
 
 		[CanEditMultipleObjects]
 		[CustomEditor(typeof(ReactiveDiffusionDisplacementWithDepth))]
-		public class ReactiveDiffusionDisplacementEditor : Editor {
+		public class ReactiveDiffusionDisplacementWithDepthEditor : Editor {
 
 			SerializedProperty iterations;
 			SerializedProperty feedRate;
