@@ -4,7 +4,7 @@ using System.Collections;
 namespace FillMember {
 
 	[RequireComponent(typeof(Camera))]
-	public class ReactiveDiffusionDisplacement : MonoBehaviour {
+	public class ReactiveDiffusionDisplacementWithDepth : MonoBehaviour {
 
 		#region Public properties and methods
 
