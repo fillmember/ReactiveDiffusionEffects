@@ -10,9 +10,10 @@ More reactive diffusion stuff: [fillmember.github.io/rdtoy/](fillmember.github.i
 
 Unity 5.4+
 
-
 ## Examples
 
-![](https://fillmember.github.io/ReactiveDiffusionEffects/RDShadeTest01.gif)
-![](https://fillmember.github.io/ReactiveDiffusionEffects/RDShadeTest02.gif)
-![](https://fillmember.github.io/ReactiveDiffusionEffects/RDShadeTest03.gif)
+![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-01-sep-2016.gif)
+![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-02-sep-2016.gif)
+![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-03-sep-2016.gif)
+
+*image uploaded in 09-2016*
