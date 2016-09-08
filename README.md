@@ -12,8 +12,8 @@ Unity 5.4+
 
 ## Examples
 
-![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-01-sep-2016.gif)
-![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-02-sep-2016.gif)
-![](https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-03-sep-2016.gif)
+<img src="https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-01-sep-2016.gif" width="500" style="width:500px;height:auto;float:left;margin-right:5px;">
+<img src="https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-02-sep-2016.gif" width="500" style="width:500px;height:auto;float:left;margin-right:5px;">
+<img src="https://raw.githubusercontent.com/fillmember/ReactiveDiffusionEffects/gh-pages/img/demo-03-sep-2016.gif" width="500" style="width:500px;height:auto;float:left;">
 
 *image uploaded in 09-2016*
